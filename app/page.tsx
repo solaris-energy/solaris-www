@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HeroSceneMount } from "../components/three/HeroScene.dynamic";
+import { HeroMapCinematicMount } from "../components/map/HeroMapCinematic.client";
 import { RoofResolution } from "../components/sections/RoofResolution";
 import { YearSimulation } from "../components/sections/YearSimulation";
 import { DealPricing } from "../components/sections/DealPricing";
@@ -14,7 +14,7 @@ export default function HomePage() {
         className="bg-grid pointer-events-none absolute inset-0 -z-10"
       />
 
-      <section className="relative mx-auto flex min-h-[100dvh] max-w-[1280px] flex-col justify-center px-6 pt-24 pb-24 md:px-12">
+      <section className="relative mx-auto flex max-w-[1440px] flex-col px-6 pt-24 pb-12 md:px-12 xl:px-16">
         <p
           className="font-mono text-xs uppercase tracking-[0.08em] text-[color:var(--color-fg-tertiary)]"
           style={{ fontFamily: "var(--font-mono)" }}
@@ -57,7 +57,7 @@ export default function HomePage() {
             { v: "28 min", l: "Site to proposal, median, pilot" },
             { v: "8,760 h", l: "Per-site yield simulation, hourly" },
             { v: "< 3 s", l: "Simulation P95, single site" },
-            { v: "EU-resident", l: "Data residency, default" },
+            { v: "MENA+EU", l: "Data residency, default" },
           ].map((m) => (
             <div key={m.l}>
               <dt
@@ -73,13 +73,13 @@ export default function HomePage() {
           ))}
         </dl>
 
-        <HeroSceneMount />
-
-        <p className="mt-4 max-w-[56ch] font-mono text-[12px] text-[color:var(--color-fg-tertiary)]">
+        <p className="mt-8 max-w-[56ch] font-mono text-[12px] text-[color:var(--color-fg-tertiary)]">
           Pilot figures from internal benchmark on flat-roof warehouses, 200
           kWp to 2 MWp. Production SLAs published per tier.
         </p>
       </section>
+
+      <HeroMapCinematicMount />
 
       <GridDivider />
       <RoofResolution />

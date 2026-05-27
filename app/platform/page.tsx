@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function PlatformPage() {
   return (
     <main id="main" className="relative isolate">
-      <section className="mx-auto max-w-[1280px] px-6 pt-24 pb-12 md:px-12">
+      <section className="mx-auto max-w-[1440px] px-6 pt-24 pb-12 md:px-12 xl:px-16">
         <p
           className="text-[11px] uppercase tracking-[0.12em] text-[color:var(--color-accent-flare)]"
           style={{ fontFamily: "var(--font-mono)" }}
@@ -33,7 +33,7 @@ export default function PlatformPage() {
 
       <PlatformDiagram />
 
-      <section className="mx-auto max-w-[1280px] px-6 py-24 md:px-12">
+      <section className="mx-auto max-w-[1440px] px-6 py-24 md:px-12 xl:px-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
           {[
             {

@@ -18,6 +18,7 @@ playwright-report/
 test-results/
 tests/visual/__diff_output__/
 .lighthouseci/
+screenshots/
 
 # Env
 .env

@@ -5,7 +5,7 @@ import { SiteFooter } from "../../components/nav/SiteFooter";
 export const metadata: Metadata = {
   title: "Company",
   description:
-    "A small team building the operating system for industrial solar. Based in France, hiring across the EU.",
+    "A small team building the operating system for industrial solar. Based in Casablanca, hiring across MENA and the EU.",
 };
 
 const CONTACTS = [
@@ -32,7 +32,7 @@ const CONTACTS = [
 export default function CompanyPage() {
   return (
     <main id="main" className="relative isolate">
-      <section className="mx-auto max-w-[1280px] px-6 pt-24 pb-12 md:px-12">
+      <section className="mx-auto max-w-[1440px] px-6 pt-24 pb-12 md:px-12 xl:px-16">
         <p
           className="text-[11px] uppercase tracking-[0.12em] text-[color:var(--color-accent-flare)]"
           style={{ fontFamily: "var(--font-mono)" }}
@@ -47,7 +47,7 @@ export default function CompanyPage() {
         </h1>
       </section>
 
-      <section className="mx-auto max-w-[1280px] px-6 py-12 md:px-12">
+      <section className="mx-auto max-w-[1440px] px-6 py-12 md:px-12 xl:px-16">
         <div className="grid grid-cols-1 gap-12 border-t border-[color:var(--color-bg-edge)] pt-12 md:grid-cols-[1fr_1.4fr]">
           <p
             className="text-[11px] uppercase tracking-[0.12em] text-[color:var(--color-fg-tertiary)]"
@@ -60,16 +60,16 @@ export default function CompanyPage() {
             industrial solar. We replace the screenshot-and-Excel proposal
             stack with a versioned workspace that takes a satellite tile and
             returns a bankable proposal in under thirty minutes. We are based
-            in France and hire across the EU. We ship on commodity hardware,
-            host in the EU by default, and publish the spec for every contract
-            we serve.
+            in Casablanca and hire across MENA and the EU. We ship on commodity
+            hardware, default to EU hosting, and publish the spec for every
+            contract we serve.
           </p>
         </div>
       </section>
 
       <section
         id="careers"
-        className="mx-auto max-w-[1280px] px-6 py-12 md:px-12"
+        className="mx-auto max-w-[1440px] px-6 py-12 md:px-12 xl:px-16"
       >
         <div className="grid grid-cols-1 gap-12 border-t border-[color:var(--color-bg-edge)] pt-12 md:grid-cols-[1fr_1.4fr]">
           <p
@@ -93,7 +93,7 @@ export default function CompanyPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1280px] px-6 py-12 md:px-12">
+      <section className="mx-auto max-w-[1440px] px-6 py-12 md:px-12 xl:px-16">
         <div className="grid grid-cols-1 gap-12 border-t border-[color:var(--color-bg-edge)] pt-12 md:grid-cols-[1fr_1.4fr]">
           <p
             className="text-[11px] uppercase tracking-[0.12em] text-[color:var(--color-fg-tertiary)]"
@@ -129,13 +129,13 @@ export default function CompanyPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1280px] px-6 py-24 md:px-12">
+      <section className="mx-auto max-w-[1440px] px-6 py-24 md:px-12 xl:px-16">
         <div className="border-t border-[color:var(--color-bg-edge)] pt-12">
           <p
             className="text-[clamp(1.5rem,3vw,2.25rem)] leading-[1.2] tracking-[-0.02em] text-[color:var(--color-fg-primary)]"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Built in France. Designed for a planet running on the sun.
+            Built in Casablanca. Designed for a planet running on the sun.
           </p>
         </div>
       </section>

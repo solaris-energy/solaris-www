@@ -29,7 +29,7 @@ const COLUMNS = [
 export function SiteFooter() {
   return (
     <footer className="mt-32 border-t border-[color:var(--color-bg-edge)]">
-      <div className="mx-auto max-w-[1280px] px-6 py-16 md:px-12">
+      <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-12 xl:px-16">
         <div className="grid grid-cols-2 gap-12 md:grid-cols-4">
           <div>
             <Link
@@ -83,15 +83,21 @@ export function SiteFooter() {
             className="text-[color:var(--color-fg-tertiary)]"
             style={{ fontFamily: "var(--font-mono)" }}
           >
-            SOLARIS — built in France. Designed for a planet running on the sun.
+            SOLARIS — built in Casablanca. Designed for a planet running on the sun.
           </p>
           <p
             className="text-[color:var(--color-fg-tertiary)]"
             style={{ fontFamily: "var(--font-mono)" }}
           >
-            BUSL-1.1 · EU-resident · {new Date().getFullYear()}
+            BUSL-1.1 · MENA+EU-resident · {new Date().getFullYear()}
           </p>
         </div>
+        <small
+          className="mt-3 block text-[10px] text-[color:var(--color-fg-tertiary)] opacity-70"
+          style={{ fontFamily: "var(--font-mono)" }}
+        >
+          Imagery: © Esri, Maxar · © EOX · Sentinel-2 cloudless · ESA · © OpenStreetMap contributors
+        </small>
       </div>
     </footer>
   );

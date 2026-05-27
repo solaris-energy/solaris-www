@@ -132,3 +132,8 @@ body {
     background-image: none;
   }
 }
+
+/* MapLibre attribution is rendered in the site footer instead. */
+.maplibregl-ctrl-attrib {
+  display: none !important;
+}

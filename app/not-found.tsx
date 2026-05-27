@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <main
       id="main"
-      className="mx-auto flex min-h-[100dvh] max-w-[1280px] flex-col justify-center px-6 md:px-12"
+      className="mx-auto flex min-h-[100dvh] max-w-[1440px] flex-col justify-center px-6 md:px-12 xl:px-16"
     >
       <p className="font-mono text-xs uppercase tracking-[0.08em] text-[color:var(--color-fg-tertiary)]">
         404 / Not found

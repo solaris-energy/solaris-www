@@ -4,7 +4,7 @@ import { SiteFooter } from "../../components/nav/SiteFooter";
 export const metadata: Metadata = {
   title: "Trust",
   description:
-    "Security, compliance, and sovereignty facts. BUSL-1.1, EU-resident, RLS-enforced, OIDC, cosign-signed, SBOM.",
+    "Security, compliance, and sovereignty facts. BUSL-1.1, MENA+EU-resident, RLS-enforced, OIDC, cosign-signed, SBOM.",
 };
 
 const FACTS = [
@@ -15,8 +15,8 @@ const FACTS = [
   },
   {
     key: "Data residency",
-    value: "EU-resident, default",
-    note: "Primary region eu-west-3 (Paris). Sovereign and on-prem profiles documented.",
+    value: "Customer choice, EU default",
+    note: "Default region eu-west-3 (Paris) — closest AWS region to Morocco. Sovereign and on-prem profiles available for in-country residency.",
   },
   {
     key: "Tenant isolation",
@@ -58,7 +58,7 @@ const FACTS = [
 export default function TrustPage() {
   return (
     <main id="main" className="relative isolate">
-      <section className="mx-auto max-w-[1280px] px-6 pt-24 pb-12 md:px-12">
+      <section className="mx-auto max-w-[1440px] px-6 pt-24 pb-12 md:px-12 xl:px-16">
         <p
           className="text-[11px] uppercase tracking-[0.12em] text-[color:var(--color-accent-flare)]"
           style={{ fontFamily: "var(--font-mono)" }}
@@ -77,7 +77,7 @@ export default function TrustPage() {
         </p>
       </section>
 
-      <section className="mx-auto max-w-[1280px] px-6 pb-24 md:px-12">
+      <section className="mx-auto max-w-[1440px] px-6 pb-24 md:px-12 xl:px-16">
         <div className="overflow-hidden rounded-sm border border-[color:var(--color-bg-edge)]">
           <table className="w-full border-collapse text-left">
             <thead>

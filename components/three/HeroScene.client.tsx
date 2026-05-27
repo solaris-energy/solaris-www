@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useMemo, useRef } from "react";
-import { Canvas, useFrame, type ThreeElements } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import {
   EffectComposer,
@@ -128,8 +128,9 @@ function Planet() {
       // ~1 rpm = 2*PI / 60 rad/s.
       ref.current.rotation.y += (Math.PI / 30) * dt;
     }
-    if (matRef.current) {
-      (matRef.current.uniforms.uTime.value as number) += dt;
+    const mat = matRef.current;
+    if (mat && mat.uniforms.uTime) {
+      (mat.uniforms.uTime.value as number) += dt;
     }
   });
 
@@ -284,11 +285,9 @@ function Starfield() {
     return positions;
   }, []);
 
-  const geomProps: ThreeElements["bufferGeometry"] = {};
-
   return (
     <points>
-      <bufferGeometry {...geomProps}>
+      <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
           args={[points, 3]}

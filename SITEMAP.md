@@ -122,7 +122,7 @@ first read. Link the trust pack.
 **Hero copy.**
 
 > **Multi-tenant by design. Single-tenant by request.**
-> Row-level security in Postgres. OIDC SSO. EU-resident by default.
+> Row-level security in Postgres. OIDC SSO. MENA+EU-resident by default.
 > Sovereign and on-prem profiles documented, not improvised.
 
 **Primary CTA.** `Download the security pack (PDF)`
@@ -152,7 +152,7 @@ contact paths.
 
 > **Energy decisions are too important to be slow.**
 > SOLARIS is a small team building the operating system for industrial
-> solar. We are based in France and hire across the EU.
+> solar. We are based in Casablanca and hire across MENA and the EU.
 
 **Primary CTA.** `See open roles`
 

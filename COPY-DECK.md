@@ -44,7 +44,7 @@ cycle.`
 | `28 min`       | Site to proposal, median, pilot    |
 | `8,760 h`      | Per-site yield simulation, hourly  |
 | `< 3 s`        | Simulation P95, single site        |
-| `EU-resident`  | Data residency, default            |
+| `MENA+EU`      | Data residency, default            |
 
 **Legal sub-line.** `Pilot figures from internal benchmark on flat-roof
 warehouses, 200 kWp to 2 MWp. Production SLAs published per tier.`
@@ -127,7 +127,7 @@ each one from design to twin.`
 
 **Body.**
 `Row-level security in Postgres, enforced by integration test.
-Keycloak OIDC for single sign-on. EU-resident by default; sovereign
+Keycloak OIDC for single sign-on. MENA+EU-resident by default; sovereign
 and on-prem profiles documented in the trust pack, not improvised on
 the call.`
 
@@ -167,7 +167,7 @@ Mission / Open roles / Contact / Press
 Security pack / Status / Privacy / Legal
 
 **Sign-off line (mono, `--fg-tertiary`).**
-`SOLARIS — built in France. Designed for a planet running on the sun.`
+`SOLARIS — built in Casablanca. Designed for a planet running on the sun.`
 
 ---
 

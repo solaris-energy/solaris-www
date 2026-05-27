@@ -24,9 +24,9 @@ test.describe("home", () => {
     await expect(skip).toBeFocused();
   });
 
-  test("hero scene mount exists", async ({ page }) => {
+  test("hero cinematic mount exists", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByTestId("hero-scene-mount")).toBeVisible();
+    await expect(page.getByTestId("hero-cinematic-mount")).toBeAttached();
   });
 
   test("primary nav is keyboard reachable in order", async ({ page }) => {
@@ -60,7 +60,7 @@ test.describe("home", () => {
 
   test("footer columns and brand line", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("contentinfo")).toContainText(/built in France/i);
+    await expect(page.getByRole("contentinfo")).toContainText(/built in Casablanca/i);
     await expect(page.getByRole("contentinfo")).toContainText(/Product/);
     await expect(page.getByRole("contentinfo")).toContainText(/Company/);
     await expect(page.getByRole("contentinfo")).toContainText(/Legal/);

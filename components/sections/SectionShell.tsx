@@ -11,7 +11,7 @@ export function SectionShell({ eyebrow, title, children, id }: Props) {
   return (
     <section
       id={id}
-      className="mx-auto max-w-[1280px] px-6 py-28 md:px-12 md:py-36"
+      className="mx-auto max-w-[1440px] px-6 py-28 md:px-12 md:py-36 xl:px-16"
     >
       <header className="mb-12 max-w-[60ch]">
         <p
@@ -36,7 +36,7 @@ export function GridDivider() {
   return (
     <div
       aria-hidden="true"
-      className="mx-auto max-w-[1280px] px-6 md:px-12"
+      className="mx-auto max-w-[1440px] px-6 md:px-12 xl:px-16"
     >
       <div className="h-px w-full bg-[color:var(--color-grid-line)]" />
     </div>

@@ -9,7 +9,7 @@ const NAV = [
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-[color:var(--color-bg-edge)]/60 bg-[color:var(--color-bg-void)]/80 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-[1280px] items-center justify-between px-6 md:px-12">
+      <div className="mx-auto flex h-14 max-w-[1440px] items-center justify-between px-6 md:px-12 xl:px-16">
         <Link
           href="/"
           className="group flex items-baseline gap-0 text-[18px] font-semibold tracking-[-0.04em] text-[color:var(--color-fg-primary)]"

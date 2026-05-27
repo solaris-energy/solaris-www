@@ -1,15 +1,34 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV !== "production";
+
+const scriptSrc = isDev
+  ? "script-src 'self' 'unsafe-eval' 'unsafe-inline' 'wasm-unsafe-eval'"
+  : "script-src 'self' 'wasm-unsafe-eval'";
+
+const connectSrc = isDev
+  ? "connect-src 'self' ws: http: https:"
+  : "connect-src 'self' https://plausible.solaris.energy https://tiles.openfreemap.org https://tiles.maps.eox.at https://s2maps-tiles.eu https://server.arcgisonline.com https://*.arcgisonline.com";
+
+// MapLibre GL spins map rendering off into a Web Worker created from a blob:
+// URL; without an explicit worker-src directive Chrome falls back to script-src
+// and refuses to construct the worker. Map tile imagery is served by EOX
+// (Sentinel-2 cloudless, low zoom) and Esri World Imagery (high zoom).
+const workerSrc = "worker-src 'self' blob:";
+const imgSrc =
+  "img-src 'self' data: blob: https://tiles.openfreemap.org https://tiles.maps.eox.at https://s2maps-tiles.eu https://server.arcgisonline.com https://*.arcgisonline.com";
+
 const securityHeaders = [
   {
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'wasm-unsafe-eval'",
+      scriptSrc,
+      workerSrc,
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob:",
-      "font-src 'self'",
-      "connect-src 'self' https://plausible.solaris.energy",
+      imgSrc,
+      "font-src 'self' data:",
+      connectSrc,
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",

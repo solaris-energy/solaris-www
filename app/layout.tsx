@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "../styles/globals.css";
+import "maplibre-gl/dist/maplibre-gl.css";
 import { SiteHeader } from "../components/nav/SiteHeader";
 
 export const metadata: Metadata = {
