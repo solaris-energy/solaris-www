@@ -27,8 +27,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-      - run: npm ci --prefer-offline --no-audit --no-fund
+      - run: npm install --no-audit --no-fund
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run format:check
@@ -46,8 +45,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-      - run: npm ci --prefer-offline --no-audit --no-fund
+      - run: npm install --no-audit --no-fund
       - run: npm run build
       - run: npm run check:budgets
       - uses: actions/upload-artifact@v4
@@ -57,7 +55,6 @@ jobs:
             .next
             public
             package.json
-            package-lock.json
             next.config.ts
           retention-days: 1
 
@@ -74,8 +71,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-      - run: npm ci --prefer-offline --no-audit --no-fund
+      - run: npm install --no-audit --no-fund
       - uses: actions/download-artifact@v4
         with:
           name: next-build
@@ -94,8 +90,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: npm
-      - run: npm ci --prefer-offline --no-audit --no-fund
+      - run: npm install --no-audit --no-fund
       - uses: actions/download-artifact@v4
         with:
           name: next-build
