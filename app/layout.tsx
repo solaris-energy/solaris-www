@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "../styles/globals.css";
+import { SiteHeader } from "../components/nav/SiteHeader";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://solaris.energy"),
@@ -84,6 +85,7 @@ export default function RootLayout({
         <a href="#main" className="skip-link">
           Skip to content
         </a>
+        <SiteHeader />
         {children}
       </body>
     </html>
