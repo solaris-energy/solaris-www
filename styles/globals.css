@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+ * Tokens. Mirror solaris-fe/src/styles/tokens.css when that file lands.
+ * Names are CSS variables so the bridge is mechanical.
+ * ------------------------------------------------------------------------- */
+
+@theme inline {
+  /* Surfaces */
+  --color-bg-void: #05070b;
+  --color-bg-deep: #0a0e14;
+  --color-bg-elevated: #11161f;
+  --color-bg-edge: #1b2230;
+
+  /* Foreground */
+  --color-fg-primary: #f4f6fa;
+  --color-fg-secondary: #a7b0c0;
+  --color-fg-tertiary: #6b7488;
+
+  /* Accent — single, intentional */
+  --color-accent-flare: #ffb23f;
+  --color-accent-flare-hot: #ffd27a;
+  --color-accent-flare-dim: #a86f1f;
+
+  /* Status */
+  --color-signal-good: #5dd39e;
+  --color-signal-warn: #f2c94c;
+  --color-signal-bad: #e5484d;
+
+  /* Grid */
+  --color-grid-line: #1b2230;
+
+  /* Typography */
+  --font-sans: "Inter", "Inter Display", system-ui, -apple-system, sans-serif;
+  --font-display: "Inter Display", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.6, 0.1, 1);
+  --ease-inout: cubic-bezier(0.5, 0, 0.2, 1);
+  --dur-instant: 80ms;
+  --dur-fast: 160ms;
+  --dur-base: 220ms;
+  --dur-slow: 400ms;
+  --dur-cinematic: 1200ms;
+}
+
+/* Base */
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: var(--color-bg-void);
+  color: var(--color-fg-primary);
+  font-family: var(--font-sans);
+  font-feature-settings:
+    "ss01" on,
+    "cv11" on;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+::selection {
+  background: var(--color-accent-flare);
+  color: var(--color-bg-void);
+}
+
+/* Focus rings stay visible. We never strip them. */
+:focus-visible {
+  outline: 2px solid var(--color-accent-flare);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  inset-inline-start: -9999px;
+  top: 0;
+  background: var(--color-accent-flare);
+  color: var(--color-bg-void);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  inset-inline-start: 0.5rem;
+  top: 0.5rem;
+}
+
+/* Reduced motion: cut every transform-based animation. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Background grid — subtle, fixed, decorative.
+ * Hidden under reduced motion (it implies a parallax that isn't there
+ * yet, and removes one paint layer on low-end GPUs). */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--color-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+  mask-image: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-grid {
+    background-image: none;
+  }
+}

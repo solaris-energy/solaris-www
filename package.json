@@ -1,0 +1,60 @@
+{
+  "name": "solaris-www",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Public marketing site for SOLARIS — the industrial-solar intelligence platform.",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22.11.0",
+    "npm": ">=10.9.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run typecheck && npm run lint && npm run format:check",
+    "check:budgets": "node scripts/check-budgets.mjs",
+    "test:e2e": "playwright test",
+    "lhci": "lhci autorun",
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "pages:deploy": "wrangler pages deploy .vercel/output/static"
+  },
+  "dependencies": {
+    "next": "15.1.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "@react-three/fiber": "8.17.10",
+    "@react-three/drei": "9.117.3",
+    "@react-three/postprocessing": "2.16.3",
+    "three": "0.170.0",
+    "gsap": "3.12.5",
+    "framer-motion": "11.15.0",
+    "@mdx-js/loader": "3.1.0",
+    "@mdx-js/react": "3.1.0",
+    "@next/mdx": "15.1.4",
+    "clsx": "2.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.5",
+    "@types/react": "19.0.4",
+    "@types/react-dom": "19.0.2",
+    "@types/three": "0.170.0",
+    "typescript": "5.7.3",
+    "tailwindcss": "4.0.0",
+    "@tailwindcss/postcss": "4.0.0",
+    "postcss": "8.4.49",
+    "autoprefixer": "10.4.20",
+    "prettier": "3.4.2",
+    "prettier-plugin-tailwindcss": "0.6.9",
+    "eslint": "9.17.0",
+    "eslint-config-next": "15.1.4",
+    "@playwright/test": "1.49.1",
+    "@lhci/cli": "0.14.0",
+    "@cloudflare/next-on-pages": "1.13.7",
+    "wrangler": "3.99.0"
+  }
+}

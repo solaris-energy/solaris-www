@@ -1,0 +1,109 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel in-flight runs for the same ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "22.11.0"
+
+jobs:
+  # ------------------------------------------------------------------------
+  # 1. Static checks — fastest gate, fails the rest of CI early.
+  # ------------------------------------------------------------------------
+  static:
+    name: typecheck + lint + format
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci --prefer-offline --no-audit --no-fund
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run format:check
+
+  # ------------------------------------------------------------------------
+  # 2. Build — produces .next, shared with the perf/e2e jobs as an artifact.
+  # ------------------------------------------------------------------------
+  build:
+    name: build + bundle budgets
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: static
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci --prefer-offline --no-audit --no-fund
+      - run: npm run build
+      - run: npm run check:budgets
+      - uses: actions/upload-artifact@v4
+        with:
+          name: next-build
+          path: |
+            .next
+            public
+            package.json
+            package-lock.json
+            next.config.ts
+          retention-days: 1
+
+  # ------------------------------------------------------------------------
+  # 3. Lighthouse CI — perf budget enforcement.
+  # ------------------------------------------------------------------------
+  lhci:
+    name: lighthouse
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci --prefer-offline --no-audit --no-fund
+      - uses: actions/download-artifact@v4
+        with:
+          name: next-build
+      - run: npm run lhci
+
+  # ------------------------------------------------------------------------
+  # 4. Playwright — smoke + visual.
+  # ------------------------------------------------------------------------
+  e2e:
+    name: playwright
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci --prefer-offline --no-audit --no-fund
+      - uses: actions/download-artifact@v4
+        with:
+          name: next-build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7

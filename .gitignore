@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+.yarn/
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# Cloudflare
+.vercel/
+.wrangler/
+
+# Test outputs
+playwright-report/
+test-results/
+tests/visual/__diff_output__/
+.lighthouseci/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build outputs
+dist/
+build/
+
+# Cache
+.cache/
+.eslintcache
+.prettiercache
+.tsbuildinfo
+*.tsbuildinfo
