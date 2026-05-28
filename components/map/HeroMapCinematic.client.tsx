@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import maplibregl, { type Map as MaplibreMap } from "maplibre-gl";
-import { HeroCinematicFallback } from "../three/HeroCinematic.fallback";
+import { HeroCinematicFallback } from "../cinematic/HeroCinematic.fallback";
 import {
   BEATS_DESKTOP,
   BEATS_MOBILE,
@@ -64,7 +64,7 @@ const HYBRID_STYLE: maplibregl.StyleSpecification = {
 };
 
 // Rich MapLibre cinematic now runs on all viewports >= 360px (MapLibre is far
-// lighter than the R3F stack the original gate was sized for). The only
+// lighter than the static-cinematic stack the original gate was sized for). The only
 // fallback path is prefers-reduced-motion or save-data / 2G.
 function shouldRenderRich(): boolean {
   if (typeof window === "undefined") return false;

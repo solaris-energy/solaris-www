@@ -3,8 +3,13 @@
  * Budget gate. Run after `next build`.
  *
  * Checks:
- *   1. Hero-route JS payload (excl. three.js chunks) <= 250 KB gzipped.
+ *   1. Hero-route JS payload <= 250 KB gzipped.
  *   2. No single image in /public/shots exceeds 180 KB.
+ *
+ * Note: the three.js / @react-three chunk exclusion was removed on
+ * 2026-05-28 when the 3D hero was deleted per CLAUDE.md §3
+ * (CesiumJS / Three.js banned). All chunks now count toward the
+ * 250 KB gate.
  *
  * Exits non-zero on violation. CI uses the exit code, not the output.
  */
@@ -37,11 +42,6 @@ async function checkHeroJs() {
   const skipped = [];
   for await (const p of walk(chunks)) {
     if (!p.endsWith(".js")) continue;
-    // Exclude three / R3F chunks — they are explicitly lazy.
-    if (/three|fiber|drei|postprocessing/.test(p)) {
-      skipped.push(p);
-      continue;
-    }
     const buf = await readFile(p);
     total += gzipSync(buf).byteLength;
   }

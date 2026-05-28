@@ -80,7 +80,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [],
   },
   experimental: {
-    optimizePackageImports: ["framer-motion", "@react-three/drei"],
+    optimizePackageImports: ["framer-motion"],
   },
   // headers() and redirects() are silently ignored under output:"export".
   // Skip registering them so the build doesn't print the warning every time.

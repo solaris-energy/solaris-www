@@ -32,11 +32,8 @@ solaris-www/
     layout/                 # Header, Footer, Nav
     primitives/             # Button, Link, Eyebrow, MetricCell
     sections/               # HeroBlock, FlowDiagram, ICPGrid, TrustGrid
-    three/                  # client-only, code-split
-      HeroScene.client.tsx
-      HeroScene.fallback.tsx
-      shaders/
-      models/               # GLB loaders, draco
+    cinematic/              # static SVG cinematic stills (post-3D removal, 2026-05-28)
+      HeroCinematic.fallback.tsx
   content/
     changelog/*.mdx
   lib/
@@ -74,38 +71,38 @@ domain-driven folders. Marketing pages have few cross-cuts; flat wins.
 |-----------------------------|----------------|-------------------------------------|
 | Layout, headers, footers    | Server         | Zero JS for nav.                    |
 | Hero text + metric strip    | Server         | LCP candidate. Must not hydrate.    |
-| Hero 3D scene               | Client (lazy)  | R3F is client-only by definition.   |
+| Hero cinematic (5 stills)   | Server         | Pure SVG; no client JS, no hydrate. |
+| Scroll-linked map cinematic | Client (lazy)  | MapLibre requires window.           |
 | Scroll-linked diagrams      | Client (lazy)  | GSAP requires window.               |
 | MDX changelog               | Server         | Renders to static HTML.             |
 | Pilot intake form           | Client         | Validation + optimistic state.      |
 
-**Hero 3D loading.** The hero ships as server-rendered HTML plus a still
-image (`hero-still.avif`, ~80 KB). After LCP fires (measured via
-`PerformanceObserver`), the page swaps in the dynamic R3F scene via
-`next/dynamic` with `ssr: false` and `loading: () => <HeroSceneFallback />`.
-This keeps LCP off the 3D critical path.
+**Hero cinematic.** The hero ships as server-rendered HTML containing a
+five-frame static cinematic (`components/cinematic/HeroCinematic.fallback.tsx`),
+all SVG, zero client JS. The scroll-linked MapLibre cinematic on the home
+page is dynamically loaded post-LCP for users who pass the
+`shouldRenderRich()` gate (no reduced-motion preference, viewport ≥ 768 px,
+no `saveData`).
 
-**Tradeoff.** A pure-RSC hero would lose the cinematic set-piece; a
-pure-client hero would tank LCP. The two-phase swap is the only option
-that hits both ≥ 90 Lighthouse and the visual ambition.
+**Tradeoff.** A 3D hero (R3F + Three.js) was removed on 2026-05-28 per
+`CLAUDE.md §3` (Three.js / CesiumJS banned, marketing site must be cheap
+to ship and audit). The SVG cinematic preserves the visual intent at
+zero JS cost and ships entirely from the server.
 
 ---
 
-## 3. 3D asset pipeline
+## 3. Asset pipeline
 
-- Authored in Blender. Single hero scene: satellite over a warehouse
-  rooftop, irradiance heatmap projected, panels populate in scroll.
-- Export to glTF 2.0, then Draco-compress with `gltf-pipeline`.
-- Target payload: ≤ 1.5 MB compressed for the hero GLB, ≤ 200 KB for
-  the irradiance texture (KTX2 + BasisU, transmitted compressed).
-- Models live in `/public/models/`; textures in `/public/textures/`.
-  Both served from Cloudflare Pages, cached `immutable, max-age=31536000`.
-- Larger assets (case-study fly-throughs, hypothetical satellite
-  imagery) live in Cloudflare R2 behind the same domain.
+- All cinematic stills are inline SVG generated at render time. No GLB,
+  no Draco, no KTX2 textures.
+- Product screenshots live in `/public/shots/` (AVIF + WebP fallback),
+  served from the static export.
+- The MapLibre cinematic streams raster tiles from EOX (low zoom) and
+  Esri (high zoom) at runtime; no tile-server bill.
 
-**Tradeoff.** Keeping hero assets in `public/` over R2 trades CDN
-flexibility for one fewer DNS lookup and a cleaner cache story. R2 is
-reserved for assets > 2 MB or assets that change without a deploy.
+**Tradeoff.** Keeping all hero assets as SVG / static images trades the
+high-end "wow" of a real 3D scene for a zero-JS hero, a smaller bundle,
+and a marketing site that builds in < 30 s.
 
 ---
 
@@ -182,9 +179,10 @@ Cross-Origin-Opener-Policy: same-origin
 Cross-Origin-Embedder-Policy: credentialless
 ```
 
-`wasm-unsafe-eval` is required for Draco's WASM decoder. `COEP:
-credentialless` lets the 3D assets load without the full SharedArrayBuffer
-opt-in, which we do not need.
+`COEP: credentialless` is kept for forward compatibility with cross-origin
+font / image loading. `wasm-unsafe-eval` is retained even though Three.js
++ Draco were removed, because MapLibre's terrain mode may use WASM in
+future; if it is not actually used, this directive can be tightened.
 
 `'unsafe-inline'` for `style-src` is the only loosened directive — Next
 inlines critical CSS at build, and the alternative (nonce per request)
@@ -199,8 +197,9 @@ Three gates, all in CI:
 1. **Lighthouse CI** (`lighthouserc.json`) — fails the build below 90
    Performance, 95 Accessibility, 95 Best Practices, 95 SEO.
 2. **Bundle size check** (`scripts/check-budgets.mjs`) — parses
-   `.next/build-manifest.json`, asserts hero-route JS ≤ 250 KB gzipped
-   excluding `three/` chunks.
+   `.next/build-manifest.json`, asserts hero-route JS ≤ 250 KB gzipped.
+   (The previous `three/` chunk exclusion was removed when the 3D hero
+   was deleted.)
 3. **Image weight check** (`scripts/check-budgets.mjs`) — asserts no
    single image in `/public/shots/` exceeds 180 KB.
 
