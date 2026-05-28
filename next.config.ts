@@ -4,7 +4,7 @@ const isDev = process.env.NODE_ENV !== "production";
 
 const scriptSrc = isDev
   ? "script-src 'self' 'unsafe-eval' 'unsafe-inline' 'wasm-unsafe-eval'"
-  : "script-src 'self' 'wasm-unsafe-eval'";
+  : "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'";
 
 const connectSrc = isDev
   ? "connect-src 'self' ws: http: https:"
@@ -52,11 +52,27 @@ const securityHeaders = [
   { key: "Cross-Origin-Embedder-Policy", value: "credentialless" },
 ];
 
+// GitHub Pages deploys this site under https://solaris-energy.github.io/solaris-www/.
+// Locally we want assets at "/" so dev/preview keeps working. The Pages workflow
+// sets NEXT_PUBLIC_BASE_PATH=/solaris-www, which we honor here and re-export so
+// client code can prepend it to raw asset paths that bypass next/link + next/image.
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+const isStaticExport = process.env.NEXT_OUTPUT === "export" || !!basePath;
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  // Static export for GitHub Pages. `headers()` and `redirects()` are no-ops
+  // under `output: "export"`; CSP is enforced via a <meta> tag in app/layout.tsx.
+  ...(isStaticExport ? { output: "export" as const } : {}),
+  basePath: basePath || undefined,
+  assetPrefix: basePath || undefined,
+  trailingSlash: true,
   images: {
+    // GitHub Pages is a static host — Next's image optimizer can't run there.
+    unoptimized: true,
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000,
     deviceSizes: [360, 640, 768, 1024, 1280, 1536, 1920, 2560],
@@ -66,50 +82,56 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["framer-motion", "@react-three/drei"],
   },
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: securityHeaders,
-      },
-      {
-        source: "/fonts/(.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      {
-        source: "/models/(.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-    ];
-  },
-  async redirects() {
-    return [
-      // Docs site lives under a separate subdomain. /docs on the
-      // marketing site is just a hand-off.
-      {
-        source: "/docs",
-        destination: "https://docs.solaris.energy",
-        permanent: false,
-        basePath: false,
-      },
-      {
-        source: "/docs/:path*",
-        destination: "https://docs.solaris.energy/:path*",
-        permanent: false,
-        basePath: false,
-      },
-    ];
-  },
+  // headers() and redirects() are silently ignored under output:"export".
+  // Skip registering them so the build doesn't print the warning every time.
+  ...(isStaticExport
+    ? {}
+    : {
+        async headers() {
+          return [
+            {
+              source: "/(.*)",
+              headers: securityHeaders,
+            },
+            {
+              source: "/fonts/(.*)",
+              headers: [
+                {
+                  key: "Cache-Control",
+                  value: "public, max-age=31536000, immutable",
+                },
+              ],
+            },
+            {
+              source: "/models/(.*)",
+              headers: [
+                {
+                  key: "Cache-Control",
+                  value: "public, max-age=31536000, immutable",
+                },
+              ],
+            },
+          ];
+        },
+        async redirects() {
+          return [
+            // Docs site lives under a separate subdomain. /docs on the
+            // marketing site is just a hand-off.
+            {
+              source: "/docs",
+              destination: "https://docs.solaris.energy",
+              permanent: false,
+              basePath: false,
+            },
+            {
+              source: "/docs/:path*",
+              destination: "https://docs.solaris.energy/:path*",
+              permanent: false,
+              basePath: false,
+            },
+          ];
+        },
+      }),
 };
 
 export default nextConfig;

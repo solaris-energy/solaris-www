@@ -1,16 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 import maplibregl, { type Map as MaplibreMap } from "maplibre-gl";
 import { HeroCinematicFallback } from "../three/HeroCinematic.fallback";
 import {
-  BEATS,
+  BEATS_DESKTOP,
+  BEATS_MOBILE,
   captionOpacity,
   interpolateCamera,
   ramp,
+  type Beat,
 } from "./cinematic-beats";
 import { buildPvModules, buildSetback, PV_ROW_COUNT } from "./pv-grid";
+import { asset } from "../../lib/asset";
 
 // Hybrid raster satellite style built inline. Low zoom = EOX Sentinel-2
 // cloudless (cloud-free planetary mosaic, CC-BY-SA). High zoom = Esri World
@@ -60,10 +63,13 @@ const HYBRID_STYLE: maplibregl.StyleSpecification = {
   ],
 };
 
+// Rich MapLibre cinematic now runs on all viewports >= 360px (MapLibre is far
+// lighter than the R3F stack the original gate was sized for). The only
+// fallback path is prefers-reduced-motion or save-data / 2G.
 function shouldRenderRich(): boolean {
   if (typeof window === "undefined") return false;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
-  if (window.matchMedia("(max-width: 1023px)").matches) return false;
+  if (window.innerWidth < 360) return false;
   type NetworkInformation = { saveData?: boolean; effectiveType?: string };
   const nav = navigator as Navigator & { connection?: NetworkInformation };
   const conn = nav.connection;
@@ -76,7 +82,7 @@ function shouldRenderRich(): boolean {
 // of the chosen warehouse (see docs/prompts/04-pv-preview-ai-image.md). If
 // the asset is absent (404), we silently fall back to the programmatic
 // GeoJSON PV grid already rendered on the map below.
-const PV_PREVIEW_SRC = "/textures/pv-preview.png";
+const PV_PREVIEW_SRC = asset("/textures/pv-preview.png");
 
 function HeroMapCinematicRich() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -86,18 +92,36 @@ function HeroMapCinematicRich() {
   const [styleReady, setStyleReady] = useState(false);
   const [progress, setProgress] = useState(0);
   const [previewAvailable, setPreviewAvailable] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const previewOpacity = Math.max(0, Math.min(1, (progress - 0.85) / 0.15));
+
+  // Pick beats array per viewport. Tablets (>=768) use desktop beats.
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const beats: readonly Beat[] = useMemo(
+    () => (isMobile ? BEATS_MOBILE : BEATS_DESKTOP),
+    [isMobile],
+  );
+  const beatsRef = useRef(beats);
+  beatsRef.current = beats;
 
   // Map lifecycle: create once on mount, destroy on unmount.
   useEffect(() => {
     if (!mapContainerRef.current) return;
+    const initialBeats = beatsRef.current;
     const map = new maplibregl.Map({
       container: mapContainerRef.current,
       style: HYBRID_STYLE,
-      center: BEATS[0]!.center as [number, number],
-      zoom: BEATS[0]!.zoom,
-      pitch: BEATS[0]!.pitch,
-      bearing: BEATS[0]!.bearing,
+      center: initialBeats[0]!.center as [number, number],
+      zoom: initialBeats[0]!.zoom,
+      pitch: initialBeats[0]!.pitch,
+      bearing: initialBeats[0]!.bearing,
       interactive: false,
       attributionControl: false,
       fadeDuration: 0,
@@ -192,7 +216,7 @@ function HeroMapCinematicRich() {
     const map = mapRef.current;
     if (!map || !styleReadyRef.current) return;
 
-    const cam = interpolateCamera(p);
+    const cam = interpolateCamera(p, beatsRef.current);
     map.jumpTo({
       center: cam.center,
       zoom: cam.zoom,
@@ -235,13 +259,17 @@ function HeroMapCinematicRich() {
       aria-label="Cinematic scroll sequence: planet, Morocco, Casablanca, rooftop, PV array."
       data-testid="hero-cinematic-mount"
       data-cinematic-progress={progress.toFixed(3)}
+      data-cinematic-viewport={isMobile ? "mobile" : "desktop"}
       className="relative mt-16 h-[500vh] w-full"
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden border-y border-[color:var(--color-bg-edge)] bg-[color:var(--color-bg-void)]">
         {/* MapLibre overrides this element's position to relative, so we give
-            it explicit width/height instead of relying on inset-0. */}
+            it explicit width/height instead of relying on inset-0. The
+            pointer-events: none on the canvas lets the sticky parent catch
+            touch scrolls on mobile (interactive:false alone isn't enough). */}
         <div
           ref={mapContainerRef}
+          className="cinematic-map-container"
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
         />
 
@@ -255,7 +283,9 @@ function HeroMapCinematicRich() {
         {/* Beat-4 AI-generated PV preview overlay. Sits above the map canvas
             and below the captions. Fades in over p ∈ [0.85, 1.0]. If the
             asset is missing the onError handler hides the element and the
-            programmatic GeoJSON PV grid on the map shows through. */}
+            programmatic GeoJSON PV grid on the map shows through.
+            object-position center 30% keeps the warehouse roof in frame for
+            portrait viewports (object-fit:cover would otherwise crop it). */}
         {previewAvailable && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -269,6 +299,7 @@ function HeroMapCinematicRich() {
               width: "100%",
               height: "100%",
               objectFit: "cover",
+              objectPosition: isMobile ? "center 30%" : "center",
               opacity: previewOpacity,
               pointerEvents: "none",
               transition: "opacity 120ms linear",
@@ -278,24 +309,39 @@ function HeroMapCinematicRich() {
 
         {/* Caption overlay */}
         <div className="pointer-events-none absolute inset-0 mx-auto flex w-full max-w-[1440px] flex-col justify-end px-6 pb-12 md:px-12 md:pb-20 xl:px-16">
-          {BEATS.map((b, i) => {
-            const opacity = captionOpacity(progress, i);
+          {beats.map((b, i) => {
+            const opacity = captionOpacity(progress, i, beats.length);
+            const isMonoLastBeat = b.mono && i === beats.length - 1;
             return (
               <figcaption
                 key={i}
                 aria-hidden={opacity < 0.5}
-                style={{ opacity }}
-                className="absolute bottom-12 left-6 max-w-[56ch] rounded-sm border border-[color:var(--color-bg-edge)] bg-[color:var(--color-bg-void)]/75 px-4 py-3 backdrop-blur-md transition-opacity duration-200 md:bottom-20 md:left-12 xl:left-16"
+                style={{
+                  opacity,
+                  fontSize: "clamp(12px, 2.6vw, 16px)",
+                  maxWidth: "min(56ch, 80vw)",
+                }}
+                className="absolute bottom-12 left-6 rounded-sm border border-[color:var(--color-bg-edge)] bg-[color:var(--color-bg-void)]/75 px-4 py-3 backdrop-blur-md transition-opacity duration-200 md:bottom-20 md:left-12 xl:left-16"
               >
                 {b.mono ? (
                   <span
-                    className="font-mono text-[13px] tracking-[0.04em] text-[color:var(--color-accent-flare)] md:text-[15px]"
+                    className={
+                      isMonoLastBeat
+                        ? "flex flex-col gap-1 font-mono tracking-[0.04em] text-[color:var(--color-accent-flare)] md:flex-row md:gap-0 md:whitespace-pre"
+                        : "font-mono tracking-[0.04em] text-[color:var(--color-accent-flare)]"
+                    }
                     style={{ fontFamily: "var(--font-mono)" }}
                   >
-                    {b.caption}
+                    {isMonoLastBeat
+                      ? b.caption.split("\n").map((line, k) => (
+                          <span key={k} className="block md:inline">
+                            {line}
+                          </span>
+                        ))
+                      : b.caption}
                   </span>
                 ) : (
-                  <span className="text-[15px] leading-[1.5] text-[color:var(--color-fg-primary)] md:text-[18px]">
+                  <span className="leading-[1.5] text-[color:var(--color-fg-primary)]">
                     {b.caption}
                   </span>
                 )}
@@ -309,12 +355,12 @@ function HeroMapCinematicRich() {
             style={{ fontFamily: "var(--font-mono)" }}
           >
             <span>
-              Beat 0{Math.min(BEATS.length, Math.floor(progress * (BEATS.length - 1)) + 1)} /
-              0{BEATS.length}
+              Beat 0{Math.min(beats.length, Math.floor(progress * (beats.length - 1)) + 1)} /
+              0{beats.length}
             </span>
             <span className="flex gap-1">
-              {BEATS.map((_, i) => {
-                const active = i / (BEATS.length - 1) <= progress + 1e-4;
+              {beats.map((_, i) => {
+                const active = i / (beats.length - 1) <= progress + 1e-4;
                 return (
                   <span
                     key={i}

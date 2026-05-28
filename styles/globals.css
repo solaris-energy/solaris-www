@@ -137,3 +137,15 @@ body {
 .maplibregl-ctrl-attrib {
   display: none !important;
 }
+
+/* The cinematic map is purely visual — interactive:false stops desktop input,
+ * but on iOS/Android the canvas still captures vertical touch gestures, which
+ * would trap the user inside the sticky 500vh stage. Disabling pointer-events
+ * on the canvas wrapper lets the outer scroll container receive every swipe.
+ * Captions remain interactive because they live above this layer with their
+ * own pointer-events context. */
+.cinematic-map-container .maplibregl-canvas-container,
+.cinematic-map-container .maplibregl-canvas {
+  pointer-events: none !important;
+  touch-action: pan-y !important;
+}

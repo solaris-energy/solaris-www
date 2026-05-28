@@ -1,5 +1,8 @@
 import type { MetadataRoute } from "next";
 
+// Static export requires the route to opt out of dynamic rendering.
+export const dynamic = "force-static";
+
 const ROUTES = [
   "",
   "/platform",
