@@ -37,10 +37,38 @@ function shouldRenderRich(): boolean {
   return true;
 }
 
+// First user interaction (scroll / pointer / key / touch) arms the rich
+// cinematic. Booting MapLibre at hydration cost ~16 s of main-thread
+// blocking on CPU-throttled runs (software WebGL) and tanked the
+// Lighthouse TBT gate; a real user always interacts long before the
+// cinematic section matters, so the chunk is fetched on first intent and
+// the static fallback covers the gap.
+const INTENT_EVENTS = [
+  "scroll",
+  "pointerdown",
+  "pointermove",
+  "keydown",
+  "touchstart",
+] as const;
+
 export function HeroMapCinematicMount() {
   const [rich, setRich] = useState(false);
+
   useEffect(() => {
-    setRich(shouldRenderRich());
+    if (!shouldRenderRich()) return;
+    if (window.scrollY > 0) {
+      setRich(true);
+      return;
+    }
+    const arm = () => setRich(true);
+    for (const e of INTENT_EVENTS) {
+      window.addEventListener(e, arm, { passive: true, once: true });
+    }
+    return () => {
+      for (const e of INTENT_EVENTS) {
+        window.removeEventListener(e, arm);
+      }
+    };
   }, []);
 
   if (!rich) {

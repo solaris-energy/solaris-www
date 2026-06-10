@@ -146,7 +146,7 @@ export function YearSimulation() {
           </svg>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-8 gap-y-6 border-t border-[color:var(--color-bg-edge)] pt-8 md:grid-cols-4">
+        <dl className="grid grid-cols-2 gap-x-8 gap-y-6 border-t border-[color:var(--color-bg-edge)] pt-8 md:grid-cols-4">
           {[
             { v: "1,284 MWh", l: "Annual yield, P50" },
             { v: "1,196 MWh", l: "Annual yield, P90" },
@@ -171,7 +171,7 @@ export function YearSimulation() {
               </dd>
             </div>
           ))}
-        </div>
+        </dl>
       </div>
     </SectionShell>
   );

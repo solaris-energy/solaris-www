@@ -93,7 +93,7 @@ export function SiteFooter() {
           </p>
         </div>
         <small
-          className="mt-3 block text-[10px] text-[color:var(--color-fg-tertiary)] opacity-70"
+          className="mt-3 block text-[10px] text-[color:var(--color-fg-tertiary)]"
           style={{ fontFamily: "var(--font-mono)" }}
         >
           Imagery: © Esri, Maxar · © EOX · Sentinel-2 cloudless · ESA · ©

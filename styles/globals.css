@@ -15,7 +15,9 @@
   /* Foreground */
   --color-fg-primary: #f4f6fa;
   --color-fg-secondary: #a7b0c0;
-  --color-fg-tertiary: #6b7488;
+  /* 4.5:1+ on bg-void AND on the #0a0e14 raised panels (WCAG AA small text).
+     #6b7488 measured 4.29/4.12 in Lighthouse - do not darken below this. */
+  --color-fg-tertiary: #7e889c;
 
   /* Accent — single, intentional */
   --color-accent-flare: #ffb23f;
