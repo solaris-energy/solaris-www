@@ -68,7 +68,7 @@ domain-driven folders. Marketing pages have few cross-cuts; flat wins.
 ## 2. RSC vs Client split
 
 | Where                       | Component type | Reason                              |
-|-----------------------------|----------------|-------------------------------------|
+| --------------------------- | -------------- | ----------------------------------- |
 | Layout, headers, footers    | Server         | Zero JS for nav.                    |
 | Hero text + metric strip    | Server         | LCP candidate. Must not hydrate.    |
 | Hero cinematic (5 stills)   | Server         | Pure SVG; no client JS, no hydrate. |
@@ -181,8 +181,9 @@ Cross-Origin-Embedder-Policy: credentialless
 
 `COEP: credentialless` is kept for forward compatibility with cross-origin
 font / image loading. `wasm-unsafe-eval` is retained even though Three.js
-+ Draco were removed, because MapLibre's terrain mode may use WASM in
-future; if it is not actually used, this directive can be tightened.
+
+- Draco were removed, because MapLibre's terrain mode may use WASM in
+  future; if it is not actually used, this directive can be tightened.
 
 `'unsafe-inline'` for `style-src` is the only loosened directive — Next
 inlines critical CSS at build, and the alternative (nonce per request)

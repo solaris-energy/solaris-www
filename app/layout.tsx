@@ -56,16 +56,14 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "SOLARIS",
     title: "SOLARIS — Industrial solar, from satellite to signature.",
-    description:
-      "Satellite tile to signed proposal. Built for EPCs and asset owners.",
+    description: "Satellite tile to signed proposal. Built for EPCs and asset owners.",
     url: "https://solaris.energy",
     images: [{ url: "/og/home.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "SOLARIS",
-    description:
-      "Satellite tile to signed proposal. Built for EPCs and asset owners.",
+    description: "Satellite tile to signed proposal. Built for EPCs and asset owners.",
     images: ["/og/home.png"],
   },
 };

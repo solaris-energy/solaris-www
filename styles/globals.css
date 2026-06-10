@@ -115,8 +115,11 @@ body {
  * Hidden under reduced motion (it implies a parallax that isn't there
  * yet, and removes one paint layer on low-end GPUs). */
 .bg-grid {
-  background-image:
-    linear-gradient(to right, var(--color-grid-line) 1px, transparent 1px),
+  background-image: linear-gradient(
+      to right,
+      var(--color-grid-line) 1px,
+      transparent 1px
+    ),
     linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px);
   background-size: 64px 64px;
   background-position: -1px -1px;

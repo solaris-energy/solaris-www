@@ -41,7 +41,7 @@ export function SiteHeader() {
 
         <Link
           href="/#pilot"
-          className="inline-flex items-center gap-2 rounded-sm border border-[color:var(--color-bg-edge)] px-3 py-1.5 text-[12px] font-medium uppercase tracking-[0.06em] text-[color:var(--color-fg-primary)] transition-colors duration-[var(--dur-base)] hover:border-[color:var(--color-accent-flare)] hover:text-[color:var(--color-accent-flare)]"
+          className="inline-flex items-center gap-2 rounded-sm border border-[color:var(--color-bg-edge)] px-3 py-1.5 text-[12px] font-medium tracking-[0.06em] text-[color:var(--color-fg-primary)] uppercase transition-colors duration-[var(--dur-base)] hover:border-[color:var(--color-accent-flare)] hover:text-[color:var(--color-accent-flare)]"
           style={{ fontFamily: "var(--font-mono)" }}
         >
           Request pilot

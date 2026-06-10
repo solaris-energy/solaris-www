@@ -38,7 +38,9 @@ page.on("response", (resp) => {
 });
 
 await page.goto(URL, { waitUntil: "networkidle" });
-await page.waitForSelector('[data-testid="hero-cinematic-mount"]', { state: "attached" });
+await page.waitForSelector('[data-testid="hero-cinematic-mount"]', {
+  state: "attached",
+});
 // Let WebGL warm up and first frames render.
 await page.waitForTimeout(2500);
 

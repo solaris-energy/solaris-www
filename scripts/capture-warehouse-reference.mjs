@@ -71,7 +71,11 @@ const out = path.join(OUT_DIR, "warehouse-reference.png");
 await page.screenshot({ path: out, fullPage: false, omitBackground: false });
 await writeFile(
   path.join(OUT_DIR, ".warehouse-reference.meta.json"),
-  JSON.stringify({ name: "Optima", lat: LAT, lon: LON, zoom: ZOOM, source: "Esri World Imagery" }, null, 2),
+  JSON.stringify(
+    { name: "Optima", lat: LAT, lon: LON, zoom: ZOOM, source: "Esri World Imagery" },
+    null,
+    2,
+  ),
   "utf8",
 );
 console.log(`wrote ${out}`);
