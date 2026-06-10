@@ -109,7 +109,7 @@ export function RoofResolution() {
           </svg>
 
           <div
-            className="absolute right-3 top-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.08em] text-[color:var(--color-fg-tertiary)]"
+            className="absolute top-3 right-3 flex items-center gap-2 font-mono text-[10px] tracking-[0.08em] text-[color:var(--color-fg-tertiary)] uppercase"
             style={{ fontFamily: "var(--font-mono)" }}
           >
             <span className="size-1.5 rounded-full bg-[color:var(--color-accent-flare)] shadow-[0_0_6px_var(--color-accent-flare)]" />
@@ -119,9 +119,9 @@ export function RoofResolution() {
 
         <div className="space-y-6">
           <p className="text-[18px] leading-[1.6] text-[color:var(--color-fg-secondary)]">
-            Rooftop segmentation against a satellite tile. Pixels resolve into
-            a polygon, the polygon resolves into measurements, the measurements
-            resolve into a bill of quantities. Every line carries its source.
+            Rooftop segmentation against a satellite tile. Pixels resolve into a
+            polygon, the polygon resolves into measurements, the measurements resolve
+            into a bill of quantities. Every line carries its source.
           </p>
           <dl
             className="grid grid-cols-2 gap-6 border-t border-[color:var(--color-bg-edge)] pt-6"
@@ -137,15 +137,15 @@ export function RoofResolution() {
                 <dt className="text-[18px] text-[color:var(--color-fg-primary)]">
                   {m.v}
                 </dt>
-                <dd className="mt-1 text-[11px] uppercase tracking-[0.06em] text-[color:var(--color-fg-tertiary)]">
+                <dd className="mt-1 text-[11px] tracking-[0.06em] text-[color:var(--color-fg-tertiary)] uppercase">
                   {m.l}
                 </dd>
               </div>
             ))}
           </dl>
           <p className="text-[12px] text-[color:var(--color-fg-tertiary)]">
-            Phase 0 ships manual polygon entry. Automatic segmentation is on
-            the roadmap and clearly tagged on /platform.
+            Phase 0 ships manual polygon entry. Automatic segmentation is on the roadmap
+            and clearly tagged on /platform.
           </p>
         </div>
       </div>

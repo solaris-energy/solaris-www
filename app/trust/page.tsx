@@ -57,82 +57,83 @@ const FACTS = [
 
 export default function TrustPage() {
   return (
-    <main id="main" className="relative isolate">
-      <section className="mx-auto max-w-[1440px] px-6 pt-24 pb-12 md:px-12 xl:px-16">
-        <p
-          className="text-[11px] uppercase tracking-[0.12em] text-[color:var(--color-accent-flare)]"
-          style={{ fontFamily: "var(--font-mono)" }}
-        >
-          Trust
-        </p>
-        <h1
-          className="mt-4 max-w-[20ch] text-balance text-[clamp(2.5rem,5.5vw,4rem)] font-bold leading-[1.05] tracking-[-0.02em]"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
-          Multi-tenant by design. Single-tenant by request.
-        </h1>
-        <p className="mt-6 max-w-[60ch] text-[18px] leading-[1.6] text-[color:var(--color-fg-secondary)]">
-          Facts on the table. Not aspirations. Every claim below corresponds to
-          a working control, a passing test, or a published artifact.
-        </p>
-      </section>
+    <>
+      <main id="main" className="relative isolate">
+        <section className="mx-auto max-w-[1440px] px-6 pt-24 pb-12 md:px-12 xl:px-16">
+          <p
+            className="text-[11px] tracking-[0.12em] text-[color:var(--color-accent-flare)] uppercase"
+            style={{ fontFamily: "var(--font-mono)" }}
+          >
+            Trust
+          </p>
+          <h1
+            className="mt-4 max-w-[20ch] text-[clamp(2.5rem,5.5vw,4rem)] leading-[1.05] font-bold tracking-[-0.02em] text-balance"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            Multi-tenant by design. Single-tenant by request.
+          </h1>
+          <p className="mt-6 max-w-[60ch] text-[18px] leading-[1.6] text-[color:var(--color-fg-secondary)]">
+            Facts on the table. Not aspirations. Every claim below corresponds to a
+            working control, a passing test, or a published artifact.
+          </p>
+        </section>
 
-      <section className="mx-auto max-w-[1440px] px-6 pb-24 md:px-12 xl:px-16">
-        <div className="overflow-hidden rounded-sm border border-[color:var(--color-bg-edge)]">
-          <table className="w-full border-collapse text-left">
-            <thead>
-              <tr
-                className="border-b border-[color:var(--color-bg-edge)] bg-[color:var(--color-bg-elevated)]"
-                style={{ fontFamily: "var(--font-mono)" }}
-              >
-                <th className="w-[28%] px-6 py-3 text-[10px] uppercase tracking-[0.08em] text-[color:var(--color-fg-tertiary)]">
-                  Control
-                </th>
-                <th className="w-[32%] px-6 py-3 text-[10px] uppercase tracking-[0.08em] text-[color:var(--color-fg-tertiary)]">
-                  Implementation
-                </th>
-                <th className="px-6 py-3 text-[10px] uppercase tracking-[0.08em] text-[color:var(--color-fg-tertiary)]">
-                  Notes
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {FACTS.map((f) => (
+        <section className="mx-auto max-w-[1440px] px-6 pb-24 md:px-12 xl:px-16">
+          <div className="overflow-hidden rounded-sm border border-[color:var(--color-bg-edge)]">
+            <table className="w-full border-collapse text-left">
+              <thead>
                 <tr
-                  key={f.key}
-                  id={f.key.toLowerCase().replace(/\s+/g, "-")}
-                  className="border-b border-[color:var(--color-bg-edge)] last:border-b-0 transition-colors hover:bg-[color:var(--color-bg-elevated)]"
+                  className="border-b border-[color:var(--color-bg-edge)] bg-[color:var(--color-bg-elevated)]"
+                  style={{ fontFamily: "var(--font-mono)" }}
                 >
-                  <td className="px-6 py-5 align-top">
-                    <span
-                      className="text-[13px] uppercase tracking-[0.06em] text-[color:var(--color-fg-secondary)]"
+                  <th className="w-[28%] px-6 py-3 text-[10px] tracking-[0.08em] text-[color:var(--color-fg-tertiary)] uppercase">
+                    Control
+                  </th>
+                  <th className="w-[32%] px-6 py-3 text-[10px] tracking-[0.08em] text-[color:var(--color-fg-tertiary)] uppercase">
+                    Implementation
+                  </th>
+                  <th className="px-6 py-3 text-[10px] tracking-[0.08em] text-[color:var(--color-fg-tertiary)] uppercase">
+                    Notes
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {FACTS.map((f) => (
+                  <tr
+                    key={f.key}
+                    id={f.key.toLowerCase().replace(/\s+/g, "-")}
+                    className="border-b border-[color:var(--color-bg-edge)] transition-colors last:border-b-0 hover:bg-[color:var(--color-bg-elevated)]"
+                  >
+                    <td className="px-6 py-5 align-top">
+                      <span
+                        className="text-[13px] tracking-[0.06em] text-[color:var(--color-fg-secondary)] uppercase"
+                        style={{ fontFamily: "var(--font-mono)" }}
+                      >
+                        {f.key}
+                      </span>
+                    </td>
+                    <td
+                      className="px-6 py-5 align-top text-[15px] text-[color:var(--color-fg-primary)]"
                       style={{ fontFamily: "var(--font-mono)" }}
                     >
-                      {f.key}
-                    </span>
-                  </td>
-                  <td
-                    className="px-6 py-5 align-top text-[15px] text-[color:var(--color-fg-primary)]"
-                    style={{ fontFamily: "var(--font-mono)" }}
-                  >
-                    {f.value}
-                  </td>
-                  <td className="px-6 py-5 align-top text-[14px] leading-[1.55] text-[color:var(--color-fg-secondary)]">
-                    {f.note}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                      {f.value}
+                    </td>
+                    <td className="px-6 py-5 align-top text-[14px] leading-[1.55] text-[color:var(--color-fg-secondary)]">
+                      {f.note}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-        <p className="mt-8 max-w-[60ch] font-mono text-[12px] text-[color:var(--color-fg-tertiary)]">
-          Full security pack on request — architecture diagrams, threat model,
-          ADRs, penetration test summary. Email security@solaris.energy.
-        </p>
-      </section>
-
+          <p className="mt-8 max-w-[60ch] font-mono text-[12px] text-[color:var(--color-fg-tertiary)]">
+            Full security pack on request — architecture diagrams, threat model, ADRs,
+            penetration test summary. Email security@solaris.energy.
+          </p>
+        </section>
+      </main>
       <SiteFooter />
-    </main>
+    </>
   );
 }

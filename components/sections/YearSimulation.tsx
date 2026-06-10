@@ -63,7 +63,7 @@ export function YearSimulation() {
       <div ref={ref} className="space-y-8">
         <div className="relative w-full overflow-hidden rounded-sm border border-[color:var(--color-bg-edge)] bg-[color:var(--color-bg-deep)] p-4 md:p-6">
           <div
-            className="mb-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.08em] text-[color:var(--color-fg-tertiary)]"
+            className="mb-3 flex items-center justify-between font-mono text-[10px] tracking-[0.08em] text-[color:var(--color-fg-tertiary)] uppercase"
             style={{ fontFamily: "var(--font-mono)" }}
           >
             <span>Hourly yield · 8,760 h · downsampled 24:1</span>
@@ -146,7 +146,7 @@ export function YearSimulation() {
           </svg>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-8 gap-y-6 border-t border-[color:var(--color-bg-edge)] pt-8 md:grid-cols-4">
+        <dl className="grid grid-cols-2 gap-x-8 gap-y-6 border-t border-[color:var(--color-bg-edge)] pt-8 md:grid-cols-4">
           {[
             { v: "1,284 MWh", l: "Annual yield, P50" },
             { v: "1,196 MWh", l: "Annual yield, P90" },
@@ -166,12 +166,12 @@ export function YearSimulation() {
               >
                 {m.v}
               </motion.dt>
-              <dd className="mt-1 font-mono text-[11px] uppercase tracking-[0.06em] text-[color:var(--color-fg-tertiary)]">
+              <dd className="mt-1 font-mono text-[11px] tracking-[0.06em] text-[color:var(--color-fg-tertiary)] uppercase">
                 {m.l}
               </dd>
             </div>
           ))}
-        </div>
+        </dl>
       </div>
     </SectionShell>
   );

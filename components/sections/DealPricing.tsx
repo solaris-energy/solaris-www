@@ -49,7 +49,7 @@ export function DealPricing() {
       <div ref={ref} className="space-y-12">
         <div className="rounded-sm border border-[color:var(--color-bg-edge)] bg-[color:var(--color-bg-deep)] p-8 md:p-12">
           <div
-            className="mb-6 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.08em] text-[color:var(--color-fg-tertiary)]"
+            className="mb-6 flex items-center justify-between font-mono text-[10px] tracking-[0.08em] text-[color:var(--color-fg-tertiary)] uppercase"
             style={{ fontFamily: "var(--font-mono)" }}
           >
             <span>Net present value · 25 y · 6.0% discount</span>
@@ -60,7 +60,7 @@ export function DealPricing() {
           </div>
 
           <div
-            className="text-[clamp(3rem,9vw,7rem)] font-medium tabular-nums leading-none tracking-[-0.04em] text-[color:var(--color-accent-flare)]"
+            className="text-[clamp(3rem,9vw,7rem)] leading-none font-medium tracking-[-0.04em] text-[color:var(--color-accent-flare)] tabular-nums"
             style={{ fontFamily: "var(--font-mono)" }}
           >
             {EUR.format(npv)}
@@ -82,10 +82,9 @@ export function DealPricing() {
           transition={{ duration: 0.4, delay: 1.4 }}
           className="max-w-[60ch] text-[16px] leading-[1.6] text-[color:var(--color-fg-secondary)]"
         >
-          NPV, IRR, payback, and LCOE recompute as the design changes — string
-          layout, tariff schedule, CAPEX assumptions, financing structure. Every
-          number on the proposal traces back to the input revision that
-          produced it.
+          NPV, IRR, payback, and LCOE recompute as the design changes — string layout,
+          tariff schedule, CAPEX assumptions, financing structure. Every number on the
+          proposal traces back to the input revision that produced it.
         </motion.p>
       </div>
     </SectionShell>
@@ -95,10 +94,10 @@ export function DealPricing() {
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="text-[22px] tabular-nums text-[color:var(--color-fg-primary)]">
+      <div className="text-[22px] text-[color:var(--color-fg-primary)] tabular-nums">
         {value}
       </div>
-      <div className="mt-1 text-[11px] uppercase tracking-[0.06em] text-[color:var(--color-fg-tertiary)]">
+      <div className="mt-1 text-[11px] tracking-[0.06em] text-[color:var(--color-fg-tertiary)] uppercase">
         {label}
       </div>
     </div>

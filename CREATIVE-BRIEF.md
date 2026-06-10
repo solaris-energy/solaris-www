@@ -38,14 +38,14 @@ emoji, any emoji on landing copy.
 
 ### Tone calibration
 
-| Surface                  | Register                                  |
-|--------------------------|-------------------------------------------|
-| Hero headline            | Declarative. Engineer-grade. No verbs of feeling. |
-| Section heads            | Telegraphic. Two to five words.           |
-| Body                     | One idea per sentence. Numbers where possible. |
-| CTA                      | Imperative, specific. "Request access" not "Get started". |
-| Footer / legal           | Neutral. No copy stunts.                  |
-| Error pages              | Honest. State what broke, offer a path.   |
+| Surface        | Register                                                  |
+| -------------- | --------------------------------------------------------- |
+| Hero headline  | Declarative. Engineer-grade. No verbs of feeling.         |
+| Section heads  | Telegraphic. Two to five words.                           |
+| Body           | One idea per sentence. Numbers where possible.            |
+| CTA            | Imperative, specific. "Request access" not "Get started". |
+| Footer / legal | Neutral. No copy stunts.                                  |
+| Error pages    | Honest. State what broke, offer a path.                   |
 
 ---
 
@@ -68,22 +68,22 @@ Three reasons.
 
 ### Tokens
 
-| Token                  | Hex       | Use                                                    |
-|------------------------|-----------|--------------------------------------------------------|
-| `--bg-void`            | `#05070B` | Page base. The deepest surface.                        |
-| `--bg-deep`            | `#0A0E14` | Section bands.                                         |
-| `--bg-elevated`        | `#11161F` | Cards, code blocks.                                    |
-| `--bg-edge`            | `#1B2230` | Borders, dividers.                                     |
-| `--fg-primary`         | `#F4F6FA` | Primary text. Contrast 16.1:1 on `--bg-void`.          |
-| `--fg-secondary`       | `#A7B0C0` | Secondary text. Contrast 7.8:1 on `--bg-void`.         |
-| `--fg-tertiary`        | `#6B7488` | Captions, metadata. Contrast 4.6:1 on `--bg-void`.     |
-| `--accent-flare`       | `#FFB23F` | The single brand accent. Contrast 10.2:1 on `--bg-void`. |
-| `--accent-flare-hot`   | `#FFD27A` | Hover, focus-ring brightening only.                    |
-| `--accent-flare-dim`   | `#A86F1F` | Pressed state, disabled accent.                        |
-| `--signal-good`        | `#5DD39E` | Telemetry-OK, success.                                 |
-| `--signal-warn`        | `#F2C94C` | Anomaly, warning.                                      |
-| `--signal-bad`         | `#E5484D` | Error, failure.                                        |
-| `--grid-line`          | `#1B2230` | Background grid stroke.                                |
+| Token                | Hex       | Use                                                      |
+| -------------------- | --------- | -------------------------------------------------------- |
+| `--bg-void`          | `#05070B` | Page base. The deepest surface.                          |
+| `--bg-deep`          | `#0A0E14` | Section bands.                                           |
+| `--bg-elevated`      | `#11161F` | Cards, code blocks.                                      |
+| `--bg-edge`          | `#1B2230` | Borders, dividers.                                       |
+| `--fg-primary`       | `#F4F6FA` | Primary text. Contrast 16.1:1 on `--bg-void`.            |
+| `--fg-secondary`     | `#A7B0C0` | Secondary text. Contrast 7.8:1 on `--bg-void`.           |
+| `--fg-tertiary`      | `#6B7488` | Captions, metadata. Contrast 4.6:1 on `--bg-void`.       |
+| `--accent-flare`     | `#FFB23F` | The single brand accent. Contrast 10.2:1 on `--bg-void`. |
+| `--accent-flare-hot` | `#FFD27A` | Hover, focus-ring brightening only.                      |
+| `--accent-flare-dim` | `#A86F1F` | Pressed state, disabled accent.                          |
+| `--signal-good`      | `#5DD39E` | Telemetry-OK, success.                                   |
+| `--signal-warn`      | `#F2C94C` | Anomaly, warning.                                        |
+| `--signal-bad`       | `#E5484D` | Error, failure.                                          |
+| `--grid-line`        | `#1B2230` | Background grid stroke.                                  |
 
 Contrast ratios verified against WCAG 2.2 AA (4.5:1 normal text, 3:1 large
 text, 3:1 non-text components).
@@ -116,19 +116,19 @@ cost), system stack (no display weight).
 
 ### Scale (modular, 1.25 ratio, base 16 px)
 
-| Token      | Size    | Line height | Use                                  |
-|------------|---------|-------------|--------------------------------------|
-| `display-1`| 72 / 80 | 1.05        | Hero headline (desktop)              |
-| `display-2`| 56 / 64 | 1.05        | Section heroes                       |
-| `h1`       | 40      | 1.15        | Page titles                          |
-| `h2`       | 32      | 1.2         | Section heads                        |
-| `h3`       | 24      | 1.3         | Sub-sections                         |
-| `body-l`   | 18      | 1.55        | Lede paragraphs                      |
-| `body`     | 16      | 1.6         | Body                                 |
-| `body-s`   | 14      | 1.55        | Secondary                            |
-| `mono-l`   | 16      | 1.5         | Inline measurements                  |
-| `mono`     | 14      | 1.5         | Metadata, captions                   |
-| `mono-s`   | 12      | 1.4         | Telemetry annotations                |
+| Token       | Size    | Line height | Use                     |
+| ----------- | ------- | ----------- | ----------------------- |
+| `display-1` | 72 / 80 | 1.05        | Hero headline (desktop) |
+| `display-2` | 56 / 64 | 1.05        | Section heroes          |
+| `h1`        | 40      | 1.15        | Page titles             |
+| `h2`        | 32      | 1.2         | Section heads           |
+| `h3`        | 24      | 1.3         | Sub-sections            |
+| `body-l`    | 18      | 1.55        | Lede paragraphs         |
+| `body`      | 16      | 1.6         | Body                    |
+| `body-s`    | 14      | 1.55        | Secondary               |
+| `mono-l`    | 16      | 1.5         | Inline measurements     |
+| `mono`      | 14      | 1.5         | Metadata, captions      |
+| `mono-s`    | 12      | 1.4         | Telemetry annotations   |
 
 Mobile: `display-1` shrinks to 44 / 48 with a fluid `clamp()`.
 
@@ -158,15 +158,15 @@ Mobile: `display-1` shrinks to 44 / 48 with a fluid `clamp()`.
 
 ### Tokens
 
-| Token            | Value                          |
-|------------------|--------------------------------|
-| `--ease-out`     | `cubic-bezier(0.2, 0.6, 0.1, 1)` |
-| `--ease-inout`   | `cubic-bezier(0.5, 0, 0.2, 1)`   |
-| `--dur-instant`  | `80ms`                         |
-| `--dur-fast`     | `160ms`                        |
-| `--dur-base`     | `220ms`                        |
-| `--dur-slow`     | `400ms`                        |
-| `--dur-cinematic`| `1200ms` (set-pieces only)     |
+| Token             | Value                            |
+| ----------------- | -------------------------------- |
+| `--ease-out`      | `cubic-bezier(0.2, 0.6, 0.1, 1)` |
+| `--ease-inout`    | `cubic-bezier(0.5, 0, 0.2, 1)`   |
+| `--dur-instant`   | `80ms`                           |
+| `--dur-fast`      | `160ms`                          |
+| `--dur-base`      | `220ms`                          |
+| `--dur-slow`      | `400ms`                          |
+| `--dur-cinematic` | `1200ms` (set-pieces only)       |
 
 ### Reduced motion
 
@@ -233,10 +233,10 @@ illustrations of "the cloud".
 
 ## 7. Voice Examples (do / don't)
 
-| Don't                                                          | Do                                                                |
-|----------------------------------------------------------------|-------------------------------------------------------------------|
-| "Unleash the power of AI for your solar projects."             | "From satellite tile to signed proposal in 28 minutes, median."   |
-| "Our cutting-edge platform empowers EPCs."                     | "Built for EPCs running 5 to 50 MW per year of C&I installations." |
-| "Revolutionize your design workflow."                          | "Replace the screenshot. Keep the engineer."                      |
-| "Seamless end-to-end integration."                             | "OIDC, OpenAPI 3.1, AsyncAPI 3. Pin a tag, ship."                 |
-| "Solar made simple."                                           | "Solar is not simple. Your tools should be."                      |
+| Don't                                              | Do                                                                 |
+| -------------------------------------------------- | ------------------------------------------------------------------ |
+| "Unleash the power of AI for your solar projects." | "From satellite tile to signed proposal in 28 minutes, median."    |
+| "Our cutting-edge platform empowers EPCs."         | "Built for EPCs running 5 to 50 MW per year of C&I installations." |
+| "Revolutionize your design workflow."              | "Replace the screenshot. Keep the engineer."                       |
+| "Seamless end-to-end integration."                 | "OIDC, OpenAPI 3.1, AsyncAPI 3. Pin a tag, ship."                  |
+| "Solar made simple."                               | "Solar is not simple. Your tools should be."                       |

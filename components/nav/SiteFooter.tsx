@@ -49,15 +49,15 @@ export function SiteFooter() {
               <span>s</span>
             </Link>
             <p className="mt-4 max-w-[28ch] text-[13px] leading-[1.6] text-[color:var(--color-fg-tertiary)]">
-              Industrial solar, instrumented end-to-end. From the first
-              satellite pixel to the last kilowatt-hour traded.
+              Industrial solar, instrumented end-to-end. From the first satellite pixel
+              to the last kilowatt-hour traded.
             </p>
           </div>
 
           {COLUMNS.map((col) => (
             <div key={col.title}>
               <h3
-                className="text-[11px] font-medium uppercase tracking-[0.08em] text-[color:var(--color-fg-tertiary)]"
+                className="text-[11px] font-medium tracking-[0.08em] text-[color:var(--color-fg-tertiary)] uppercase"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
                 {col.title}
@@ -93,10 +93,11 @@ export function SiteFooter() {
           </p>
         </div>
         <small
-          className="mt-3 block text-[10px] text-[color:var(--color-fg-tertiary)] opacity-70"
+          className="mt-3 block text-[10px] text-[color:var(--color-fg-tertiary)]"
           style={{ fontFamily: "var(--font-mono)" }}
         >
-          Imagery: © Esri, Maxar · © EOX · Sentinel-2 cloudless · ESA · © OpenStreetMap contributors
+          Imagery: © Esri, Maxar · © EOX · Sentinel-2 cloudless · ESA · ©
+          OpenStreetMap contributors
         </small>
       </div>
     </footer>

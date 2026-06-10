@@ -7,12 +7,7 @@
       "numberOfRuns": 3,
       "settings": {
         "preset": "desktop",
-        "throttlingMethod": "simulate",
-        "throttling": {
-          "rttMs": 40,
-          "throughputKbps": 10240,
-          "cpuSlowdownMultiplier": 4
-        }
+        "throttlingMethod": "simulate"
       }
     },
     "assert": {

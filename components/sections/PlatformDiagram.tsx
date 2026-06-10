@@ -14,33 +14,19 @@ const LAYERS: Layer[] = [
     key: "sat",
     label: "Satellite",
     sub: "Polygon · GeoJSON · tile reference",
-    bullets: [
-      "Polygon ingest",
-      "Setback resolution",
-      "Ground sample distance",
-    ],
+    bullets: ["Polygon ingest", "Setback resolution", "Ground sample distance"],
   },
   {
     key: "sim",
     label: "Simulation",
     sub: "pvlib · PVGIS · ERA5 · 8,760 h",
-    bullets: [
-      "Hourly yield",
-      "Loss model",
-      "P50 / P90",
-      "Capacity factor",
-    ],
+    bullets: ["Hourly yield", "Loss model", "P50 / P90", "Capacity factor"],
   },
   {
     key: "pdf",
     label: "Proposal",
     sub: "PDF · branded · audit-trailed",
-    bullets: [
-      "Executive summary",
-      "Design",
-      "Yield",
-      "Financials",
-    ],
+    bullets: ["Executive summary", "Design", "Yield", "Financials"],
   },
 ];
 
@@ -70,21 +56,21 @@ export function PlatformDiagram() {
               />
 
               <p
-                className="font-mono text-[11px] uppercase tracking-[0.12em] text-[color:var(--color-fg-tertiary)]"
+                className="font-mono text-[11px] tracking-[0.12em] text-[color:var(--color-fg-tertiary)] uppercase"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
                 Layer 0{i + 1}
               </p>
 
               <h3
-                className="mt-3 text-[26px] font-semibold leading-[1.1] tracking-[-0.02em] text-[color:var(--color-fg-primary)]"
+                className="mt-3 text-[26px] leading-[1.1] font-semibold tracking-[-0.02em] text-[color:var(--color-fg-primary)]"
                 style={{ fontFamily: "var(--font-display)" }}
               >
                 {layer.label}
               </h3>
 
               <p
-                className="mt-2 max-w-[28ch] font-mono text-[12px] leading-[1.5] text-[color:var(--color-fg-secondary)] [text-wrap:pretty]"
+                className="mt-2 max-w-[28ch] font-mono text-[12px] leading-[1.5] [text-wrap:pretty] text-[color:var(--color-fg-secondary)]"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
                 {layer.sub}
@@ -92,7 +78,7 @@ export function PlatformDiagram() {
 
               <hr className="my-5 border-0 border-t border-[color:var(--color-bg-edge)]" />
 
-              <ul className="flex max-w-[28ch] flex-col gap-2 text-[13px] leading-[1.5] text-[color:var(--color-fg-secondary)] [text-wrap:pretty]">
+              <ul className="flex max-w-[28ch] flex-col gap-2 text-[13px] leading-[1.5] [text-wrap:pretty] text-[color:var(--color-fg-secondary)]">
                 {layer.bullets.map((b) => (
                   <li key={b} className="flex min-w-0 items-start gap-2">
                     <span
@@ -107,7 +93,7 @@ export function PlatformDiagram() {
               {i < LAYERS.length - 1 && (
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute right-[-1.25rem] top-1/2 hidden -translate-y-1/2 items-center text-[color:var(--color-accent-flare)] lg:flex"
+                  className="pointer-events-none absolute top-1/2 right-[-1.25rem] hidden -translate-y-1/2 items-center text-[color:var(--color-accent-flare)] lg:flex"
                 >
                   <span className="h-px w-6 bg-[color:var(--color-accent-flare)]" />
                   <span className="-ml-[1px] text-[14px] leading-none">&rsaquo;</span>

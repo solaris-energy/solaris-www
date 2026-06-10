@@ -55,7 +55,10 @@ try {
       });
       if (!geom) throw new Error("cinematic mount not found at " + v.name);
       const targetScroll = geom.top + p * (geom.height - geom.viewH);
-      await page.evaluate((y) => window.scrollTo({ top: y, behavior: "instant" }), targetScroll);
+      await page.evaluate(
+        (y) => window.scrollTo({ top: y, behavior: "instant" }),
+        targetScroll,
+      );
       // Tile servers (EOX, Esri) are external and slow on cold loads — wait
       // long enough that the visible viewport is populated before the shot.
       await page.waitForLoadState("networkidle").catch(() => {});

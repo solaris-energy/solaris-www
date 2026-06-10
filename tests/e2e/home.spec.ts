@@ -29,20 +29,27 @@ test.describe("home", () => {
     await expect(page.getByTestId("hero-cinematic-mount")).toBeAttached();
   });
 
-  test("primary nav is keyboard reachable in order", async ({ page }) => {
+  test("primary nav is keyboard reachable in order", async ({ page, isMobile }) => {
     await page.goto("/");
-    // skip-link, wordmark, nav links (3), nav CTA
+    // Desktop: skip-link, wordmark, nav links (3), nav CTA.
+    // Mobile: the primary nav is hidden below md, so skip-link, wordmark, CTA.
+    // Locators are scoped to the banner: the footer repeats the wordmark and
+    // nav links with the same accessible names, which would otherwise trip
+    // Playwright strict mode.
+    const banner = page.getByRole("banner");
     await page.keyboard.press("Tab"); // skip
     await page.keyboard.press("Tab"); // wordmark
-    await expect(page.getByRole("link", { name: /solaris — home/i })).toBeFocused();
+    await expect(banner.getByRole("link", { name: /solaris — home/i })).toBeFocused();
+    if (!isMobile) {
+      await page.keyboard.press("Tab");
+      await expect(banner.getByRole("link", { name: /^platform$/i })).toBeFocused();
+      await page.keyboard.press("Tab");
+      await expect(banner.getByRole("link", { name: /^trust$/i })).toBeFocused();
+      await page.keyboard.press("Tab");
+      await expect(banner.getByRole("link", { name: /^company$/i })).toBeFocused();
+    }
     await page.keyboard.press("Tab");
-    await expect(page.getByRole("link", { name: /^platform$/i })).toBeFocused();
-    await page.keyboard.press("Tab");
-    await expect(page.getByRole("link", { name: /^trust$/i })).toBeFocused();
-    await page.keyboard.press("Tab");
-    await expect(page.getByRole("link", { name: /^company$/i })).toBeFocused();
-    await page.keyboard.press("Tab");
-    await expect(page.getByRole("link", { name: /request pilot/i })).toBeFocused();
+    await expect(banner.getByRole("link", { name: /request pilot/i })).toBeFocused();
   });
 
   test("set-piece sections render", async ({ page }) => {

@@ -39,12 +39,12 @@ cycle.`
 
 **Metric strip (mono, 14 px, four columns).**
 
-| Value          | Label                              |
-|----------------|------------------------------------|
-| `28 min`       | Site to proposal, median, pilot    |
-| `8,760 h`      | Per-site yield simulation, hourly  |
-| `< 3 s`        | Simulation P95, single site        |
-| `MENA+EU`      | Data residency, default            |
+| Value     | Label                             |
+| --------- | --------------------------------- |
+| `28 min`  | Site to proposal, median, pilot   |
+| `8,760 h` | Per-site yield simulation, hourly |
+| `< 3 s`   | Simulation P95, single site       |
+| `MENA+EU` | Data residency, default           |
 
 **Legal sub-line.** `Pilot figures from internal benchmark on flat-roof
 warehouses, 200 kWp to 2 MWp. Production SLAs published per tier.`
@@ -75,8 +75,8 @@ local LLM you can audit.`
 Telemetry, performance versus expected, predictive maintenance.`
 
 > Footer line under step 04: `Steps 01-03 ship today. Step 04 ships
-> when a paying customer connects an inverter. We do not pretend
-> otherwise.`
+when a paying customer connects an inverter. We do not pretend
+otherwise.`
 
 ---
 
@@ -177,10 +177,10 @@ The brief asks for three. Here they are; founder picks. The deck above
 uses option A.
 
 - **A.** `Satellite tile to signed proposal.`
-   (8 words. Implies the full arc; pairs cleanly with the metric strip.)
+  (8 words. Implies the full arc; pairs cleanly with the metric strip.)
 - **B.** `Industrial solar, from the first pixel.`
-   (7 words. Anchors on the satellite-first principle (`P2`). Less
-   action, more category.)
+  (7 words. Anchors on the satellite-first principle (`P2`). Less
+  action, more category.)
 - **C.** `Stop drawing solar. Start designing it.`
-   (6 words. Most pointed at the Aurora/Helioscope competitive wedge;
-   risk: combative tone may alienate engineers who like their CAD.)
+  (6 words. Most pointed at the Aurora/Helioscope competitive wedge;
+  risk: combative tone may alienate engineers who like their CAD.)

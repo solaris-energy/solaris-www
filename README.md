@@ -15,16 +15,16 @@ their team gets to use it.
 
 ## Stack
 
-| Layer       | Choice                                 | Why this, not the alternative                                                                 |
-|-------------|----------------------------------------|------------------------------------------------------------------------------------------------|
-| Framework   | Next.js 15 (App Router, RSC)           | RSC keeps marketing HTML on the edge; client islands for 3D. Astro was tempting but the team already knows Next; one stack across `solaris-www` and `solaris-fe`'s public previews. |
-| 3D          | React Three Fiber + drei + postprocessing | R3F composes like React, degrades to `<canvas>` placeholder. Three.js direct = imperative, harder to maintain. |
-| Motion (2D) | GSAP (ScrollTrigger) + Framer Motion   | GSAP for cinematic timelines, Framer for component-local transitions. Lottie rejected — JSON payload too heavy for the budget. |
-| Styling     | Tailwind v4 + CSS variables            | CSS variables bridge tokens to `solaris-fe` design system. Vanilla CSS would diverge fast. |
-| Content     | MDX                                    | Changelog and case studies authored as prose with embedded components. Sanity/Contentful rejected — no editorial team to justify a CMS. |
-| Deploy      | Cloudflare Pages (edge)                | Free for our traffic envelope, global PoPs, R2 colocates with site for asset hosting. Vercel rejected for cost at scale. |
-| Analytics   | Plausible (self-host)                  | Cookie-free, no consent banner, EU-hosted. GA4 rejected on GDPR + bundle weight. |
-| Testing     | Playwright (visual regression) + Lighthouse CI | Both run in CI under 5 min. Cypress rejected — Playwright is faster on parallel shards. |
+| Layer       | Choice                                         | Why this, not the alternative                                                                                                                                                       |
+| ----------- | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Framework   | Next.js 15 (App Router, RSC)                   | RSC keeps marketing HTML on the edge; client islands for 3D. Astro was tempting but the team already knows Next; one stack across `solaris-www` and `solaris-fe`'s public previews. |
+| 3D          | React Three Fiber + drei + postprocessing      | R3F composes like React, degrades to `<canvas>` placeholder. Three.js direct = imperative, harder to maintain.                                                                      |
+| Motion (2D) | GSAP (ScrollTrigger) + Framer Motion           | GSAP for cinematic timelines, Framer for component-local transitions. Lottie rejected — JSON payload too heavy for the budget.                                                      |
+| Styling     | Tailwind v4 + CSS variables                    | CSS variables bridge tokens to `solaris-fe` design system. Vanilla CSS would diverge fast.                                                                                          |
+| Content     | MDX                                            | Changelog and case studies authored as prose with embedded components. Sanity/Contentful rejected — no editorial team to justify a CMS.                                             |
+| Deploy      | Cloudflare Pages (edge)                        | Free for our traffic envelope, global PoPs, R2 colocates with site for asset hosting. Vercel rejected for cost at scale.                                                            |
+| Analytics   | Plausible (self-host)                          | Cookie-free, no consent banner, EU-hosted. GA4 rejected on GDPR + bundle weight.                                                                                                    |
+| Testing     | Playwright (visual regression) + Lighthouse CI | Both run in CI under 5 min. Cypress rejected — Playwright is faster on parallel shards.                                                                                             |
 
 ## Run
 
@@ -40,15 +40,15 @@ npm run lhci       # Lighthouse CI against local build
 
 ## Performance budget (enforced in CI)
 
-| Metric                                    | Budget        |
-|-------------------------------------------|---------------|
-| Lighthouse Performance (mobile, throttled)| >= 90         |
-| First Contentful Paint                    | < 1.5 s       |
-| Largest Contentful Paint                  | < 2.5 s       |
-| Cumulative Layout Shift                   | < 0.05        |
-| Total Blocking Time                       | < 200 ms      |
-| Hero-route JS, gzipped (excl. 3D chunk)   | < 250 KB      |
-| 3D asset payload (lazy)                   | < 1.5 MB      |
+| Metric                                     | Budget   |
+| ------------------------------------------ | -------- |
+| Lighthouse Performance (mobile, throttled) | >= 90    |
+| First Contentful Paint                     | < 1.5 s  |
+| Largest Contentful Paint                   | < 2.5 s  |
+| Cumulative Layout Shift                    | < 0.05   |
+| Total Blocking Time                        | < 200 ms |
+| Hero-route JS, gzipped (excl. 3D chunk)    | < 250 KB |
+| 3D asset payload (lazy)                    | < 1.5 MB |
 
 Budget violations fail the build. See `.github/workflows/ci.yml` and
 `lighthouserc.json`.

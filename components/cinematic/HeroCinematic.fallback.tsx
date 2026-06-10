@@ -62,7 +62,7 @@ export function HeroCinematicFallback() {
               )}
             </figcaption>
             <div
-              className="absolute right-4 top-4 font-mono text-[10px] uppercase tracking-[0.08em] text-[color:var(--color-fg-tertiary)]"
+              className="absolute top-4 right-4 font-mono text-[10px] tracking-[0.08em] text-[color:var(--color-fg-tertiary)] uppercase"
               style={{ fontFamily: "var(--font-mono)" }}
             >
               Frame 0{i + 1} / 05
@@ -108,14 +108,26 @@ function PlanetStill() {
       <circle cx="360" cy="200" r="22" fill="url(#flare-spot-1)" />
       <circle cx="430" cy="230" r="18" fill="url(#flare-spot-1)" />
       <circle cx="390" cy="260" r="14" fill="url(#flare-spot-1)" />
-      <ellipse cx="400" cy="225" rx="245" ry="45" fill="none" stroke="#FFB23F" strokeOpacity="0.18" />
+      <ellipse
+        cx="400"
+        cy="225"
+        rx="245"
+        ry="45"
+        fill="none"
+        stroke="#FFB23F"
+        strokeOpacity="0.18"
+      />
     </svg>
   );
 }
 
 function MoroccoStill() {
   return (
-    <svg viewBox="0 0 800 450" className="absolute inset-0 size-full" aria-hidden="true">
+    <svg
+      viewBox="0 0 800 450"
+      className="absolute inset-0 size-full"
+      aria-hidden="true"
+    >
       <defs>
         <radialGradient id="morocco-glow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#FFB23F" stopOpacity="0.6" />
@@ -131,13 +143,25 @@ function MoroccoStill() {
         strokeWidth="1"
       />
       {/* Atlas mountains hint */}
-      <path d="M300,220 L380,200 L440,230 L500,220" fill="none" stroke="#1B2230" strokeWidth="1.5" />
+      <path
+        d="M300,220 L380,200 L440,230 L500,220"
+        fill="none"
+        stroke="#1B2230"
+        strokeWidth="1.5"
+      />
       {/* Sahara heat */}
       <circle cx="430" cy="270" r="120" fill="url(#morocco-glow)" />
       <circle cx="380" cy="240" r="80" fill="url(#morocco-glow)" opacity="0.7" />
       {/* Atlantic coast pin */}
       <circle cx="300" cy="220" r="3" fill="#FFB23F" />
-      <circle cx="300" cy="220" r="8" fill="none" stroke="#FFB23F" strokeOpacity="0.5" />
+      <circle
+        cx="300"
+        cy="220"
+        r="8"
+        fill="none"
+        stroke="#FFB23F"
+        strokeOpacity="0.5"
+      />
       <text
         x="312"
         y="218"
@@ -153,7 +177,11 @@ function MoroccoStill() {
 
 function CasablancaStill() {
   return (
-    <svg viewBox="0 0 800 450" className="absolute inset-0 size-full" aria-hidden="true">
+    <svg
+      viewBox="0 0 800 450"
+      className="absolute inset-0 size-full"
+      aria-hidden="true"
+    >
       <rect width="800" height="450" fill="#05070B" />
       {/* Coastline */}
       <path
@@ -167,7 +195,11 @@ function CasablancaStill() {
         fill="#070A10"
       />
       {/* Port jetties */}
-      <path d="M340,290 L380,260 M360,290 L400,260 M380,290 L420,260" stroke="#1B2230" strokeWidth="1" />
+      <path
+        d="M340,290 L380,260 M360,290 L400,260 M380,290 L420,260"
+        stroke="#1B2230"
+        strokeWidth="1"
+      />
       {/* Industrial blocks — north */}
       {Array.from({ length: 36 }).map((_, i) => {
         const col = i % 9;
@@ -191,10 +223,40 @@ function CasablancaStill() {
         );
       })}
       {/* Highlighted candidate sites */}
-      <rect x="320" y="92" width="40" height="22" fill="none" stroke="#FFB23F" strokeWidth="1.2" />
-      <rect x="424" y="156" width="32" height="20" fill="none" stroke="#FFB23F" strokeWidth="1.2" />
-      <rect x="260" y="124" width="28" height="18" fill="none" stroke="#FFB23F" strokeWidth="1.2" />
-      <text x="20" y="40" fill="#6B7488" fontSize="11" fontFamily="JetBrains Mono, monospace">
+      <rect
+        x="320"
+        y="92"
+        width="40"
+        height="22"
+        fill="none"
+        stroke="#FFB23F"
+        strokeWidth="1.2"
+      />
+      <rect
+        x="424"
+        y="156"
+        width="32"
+        height="20"
+        fill="none"
+        stroke="#FFB23F"
+        strokeWidth="1.2"
+      />
+      <rect
+        x="260"
+        y="124"
+        width="28"
+        height="18"
+        fill="none"
+        stroke="#FFB23F"
+        strokeWidth="1.2"
+      />
+      <text
+        x="20"
+        y="40"
+        fill="#6B7488"
+        fontSize="11"
+        fontFamily="JetBrains Mono, monospace"
+      >
         CASABLANCA · 33.57°N -7.59°W · Tile 18/05798
       </text>
     </svg>
@@ -203,7 +265,11 @@ function CasablancaStill() {
 
 function RooftopStill() {
   return (
-    <svg viewBox="0 0 800 450" className="absolute inset-0 size-full" aria-hidden="true">
+    <svg
+      viewBox="0 0 800 450"
+      className="absolute inset-0 size-full"
+      aria-hidden="true"
+    >
       <defs>
         <linearGradient id="roof-grad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#1B2230" />
@@ -212,7 +278,11 @@ function RooftopStill() {
       </defs>
       <rect width="800" height="450" fill="#05070B" />
       {/* Rooftop quad — perspective */}
-      <path d="M160,140 L640,160 L660,360 L120,340 Z" fill="url(#roof-grad)" stroke="#1B2230" />
+      <path
+        d="M160,140 L640,160 L660,360 L120,340 Z"
+        fill="url(#roof-grad)"
+        stroke="#1B2230"
+      />
       {/* Setback dashed border */}
       <path
         d="M190,168 L610,184 L626,332 L150,316 Z"
@@ -230,8 +300,21 @@ function RooftopStill() {
       <rect x="380" y="280" width="28" height="20" fill="#0A0E14" stroke="#1B2230" />
       {/* Sun position marker */}
       <circle cx="620" cy="80" r="14" fill="#FFB23F" opacity="0.85" />
-      <circle cx="620" cy="80" r="22" fill="none" stroke="#FFB23F" strokeOpacity="0.3" />
-      <text x="20" y="40" fill="#6B7488" fontSize="11" fontFamily="JetBrains Mono, monospace">
+      <circle
+        cx="620"
+        cy="80"
+        r="22"
+        fill="none"
+        stroke="#FFB23F"
+        strokeOpacity="0.3"
+      />
+      <text
+        x="20"
+        y="40"
+        fill="#6B7488"
+        fontSize="11"
+        fontFamily="JetBrains Mono, monospace"
+      >
         SOLAR NOON · AZ 180° · ALT 70°
       </text>
     </svg>
@@ -240,7 +323,11 @@ function RooftopStill() {
 
 function ArrayStill() {
   return (
-    <svg viewBox="0 0 800 450" className="absolute inset-0 size-full" aria-hidden="true">
+    <svg
+      viewBox="0 0 800 450"
+      className="absolute inset-0 size-full"
+      aria-hidden="true"
+    >
       <rect width="800" height="450" fill="#05070B" />
       <path d="M160,140 L640,160 L660,360 L120,340 Z" fill="#0F141C" stroke="#1B2230" />
       <path
@@ -269,7 +356,7 @@ function ArrayStill() {
               width={16}
               height={9}
               fill="#FFB23F"
-              fillOpacity={0.55 + (((row + col) % 3) * 0.12)}
+              fillOpacity={0.55 + ((row + col) % 3) * 0.12}
               stroke="#A86F1F"
               strokeWidth={0.4}
             />

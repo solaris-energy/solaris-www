@@ -15,13 +15,13 @@ export function SectionShell({ eyebrow, title, children, id }: Props) {
     >
       <header className="mb-12 max-w-[60ch]">
         <p
-          className="text-[11px] uppercase tracking-[0.12em] text-[color:var(--color-accent-flare)]"
+          className="text-[11px] tracking-[0.12em] text-[color:var(--color-accent-flare)] uppercase"
           style={{ fontFamily: "var(--font-mono)" }}
         >
           {eyebrow}
         </p>
         <h2
-          className="mt-3 text-[clamp(1.75rem,3.4vw,2.5rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-[color:var(--color-fg-primary)]"
+          className="mt-3 text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.1] font-semibold tracking-[-0.02em] text-[color:var(--color-fg-primary)]"
           style={{ fontFamily: "var(--font-display)" }}
         >
           {title}
@@ -34,10 +34,7 @@ export function SectionShell({ eyebrow, title, children, id }: Props) {
 
 export function GridDivider() {
   return (
-    <div
-      aria-hidden="true"
-      className="mx-auto max-w-[1440px] px-6 md:px-12 xl:px-16"
-    >
+    <div aria-hidden="true" className="mx-auto max-w-[1440px] px-6 md:px-12 xl:px-16">
       <div className="h-px w-full bg-[color:var(--color-grid-line)]" />
     </div>
   );

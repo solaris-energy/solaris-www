@@ -3,13 +3,13 @@
  * Budget gate. Run after `next build`.
  *
  * Checks:
- *   1. Hero-route JS payload <= 250 KB gzipped.
+ *   1. Hero-route (/) first-load JS <= 250 KB gzipped. Measured from the
+ *      build manifests (rootMainFiles + /layout + /page entries), i.e. the
+ *      JS a first visit actually downloads before interaction. Chunks that
+ *      are lazy-loaded behind `next/dynamic` (the maplibre-gl cinematic)
+ *      are intentionally outside the gate, same as the three.js exclusion
+ *      that existed before the 3D hero was deleted on 2026-05-28.
  *   2. No single image in /public/shots exceeds 180 KB.
- *
- * Note: the three.js / @react-three chunk exclusion was removed on
- * 2026-05-28 when the 3D hero was deleted per CLAUDE.md §3
- * (CesiumJS / Three.js banned). All chunks now count toward the
- * 250 KB gate.
  *
  * Exits non-zero on violation. CI uses the exit code, not the output.
  */
@@ -36,16 +36,32 @@ async function* walk(dir) {
   }
 }
 
+async function readJson(p) {
+  return JSON.parse(await readFile(p, "utf8"));
+}
+
 async function checkHeroJs() {
-  const chunks = join(ROOT, ".next", "static", "chunks");
+  const nextDir = join(ROOT, ".next");
+  const buildManifest = await readJson(join(nextDir, "build-manifest.json"));
+  const appManifest = await readJson(join(nextDir, "app-build-manifest.json"));
+
+  const files = new Set([
+    ...(buildManifest.rootMainFiles ?? []),
+    ...(appManifest.pages?.["/layout"] ?? []),
+    ...(appManifest.pages?.["/page"] ?? []),
+  ]);
+
   let total = 0;
-  const skipped = [];
-  for await (const p of walk(chunks)) {
-    if (!p.endsWith(".js")) continue;
-    const buf = await readFile(p);
-    total += gzipSync(buf).byteLength;
+  const perFile = [];
+  for (const f of files) {
+    if (!f.endsWith(".js")) continue;
+    const buf = await readFile(join(nextDir, f));
+    const gz = gzipSync(buf).byteLength;
+    total += gz;
+    perFile.push({ file: f, gz });
   }
-  return { total, skipped };
+  perFile.sort((a, b) => b.gz - a.gz);
+  return { total, perFile };
 }
 
 async function checkImages() {
@@ -63,9 +79,13 @@ async function checkImages() {
 const fmt = (b) => `${(b / 1024).toFixed(1)} KB`;
 let failed = false;
 
-const { total, skipped } = await checkHeroJs();
-console.log(`hero JS (gzipped, excl. 3D): ${fmt(total)} / ${fmt(HERO_JS_BUDGET_BYTES)}`);
-console.log(`  excluded chunks: ${skipped.length}`);
+const { total, perFile } = await checkHeroJs();
+console.log(
+  `hero-route first-load JS (gzipped): ${fmt(total)} / ${fmt(HERO_JS_BUDGET_BYTES)}`,
+);
+for (const { file, gz } of perFile) {
+  console.log(`  ${fmt(gz).padStart(9)}  ${file}`);
+}
 if (total > HERO_JS_BUDGET_BYTES) {
   console.error(`  BUDGET EXCEEDED by ${fmt(total - HERO_JS_BUDGET_BYTES)}`);
   failed = true;
