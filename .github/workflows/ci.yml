@@ -27,68 +27,67 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - run: npm install --no-audit --no-fund
+          cache: npm
+      - run: npm ci --no-audit --no-fund
       - run: npm run typecheck
       - run: npm run lint
-      # format:check disabled until prettier --write is run on the initial scaffold.
-      # Re-enable once `npm run format` has been committed.
-      # - run: npm run format:check
+      - run: npm run format:check
 
   # ------------------------------------------------------------------------
-  # 2. Build — DISABLED pending Tailwind v4 + Next 15 + npm-no-lockfile
-  # interaction (see ScannerOptions.sources error). Re-enable once a
-  # package-lock.json is committed AND @tailwindcss/postcss is pinned to
-  # a known-working release with tailwindcss core.
+  # 2. Build + bundle budgets. The default (non-export) build, same one
+  # lhci/e2e serve with `next start`. The Pages export build is owned by
+  # deploy-pages.yml.
   # ------------------------------------------------------------------------
-  # build:
-  #   name: build + bundle budgets
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 5
-  #   needs: static
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-node@v4
-  #       with:
-  #         node-version: ${{ env.NODE_VERSION }}
-  #     - run: npm install --no-audit --no-fund
-  #     - run: npm run build
-  #     - run: npm run check:budgets
+  build:
+    name: build + bundle budgets
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: static
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - run: npm run check:budgets
 
   # ------------------------------------------------------------------------
-  # 3. Lighthouse CI — DISABLED until build job is restored.
+  # 3. Lighthouse CI. Rebuilds instead of sharing an artifact with `build`:
+  # the build takes <1 min and a fresh .next avoids upload/download of
+  # hidden-dot directories.
   # ------------------------------------------------------------------------
-  # lhci:
-  #   name: lighthouse
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 5
-  #   needs: build
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-node@v4
-  #       with:
-  #         node-version: ${{ env.NODE_VERSION }}
-  #     - run: npm install --no-audit --no-fund
-  #     - uses: actions/download-artifact@v4
-  #       with:
-  #         name: next-build
-  #     - run: npm run lhci
+  lhci:
+    name: lighthouse
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - run: npm run lhci
 
   # ------------------------------------------------------------------------
-  # 4. Playwright — DISABLED until build job is restored.
+  # 4. Playwright e2e. Same rebuild rationale as lhci.
   # ------------------------------------------------------------------------
-  # e2e:
-  #   name: playwright
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 5
-  #   needs: build
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-node@v4
-  #       with:
-  #         node-version: ${{ env.NODE_VERSION }}
-  #     - run: npm install --no-audit --no-fund
-  #     - uses: actions/download-artifact@v4
-  #       with:
-  #         name: next-build
-  #     - run: npx playwright install --with-deps chromium
-  #     - run: npm run test:e2e
+  e2e:
+    name: playwright
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
