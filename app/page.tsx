@@ -1,20 +1,8 @@
 import Link from "next/link";
 import { HeroMapCinematicMount } from "../components/map/HeroMapCinematic.client";
-import dynamic from "next/dynamic";
-
-// Set pieces are below the fold and framer-motion heavy. next/dynamic keeps
-// their prerendered HTML (ssr default) but splits each into its own chunk,
-// so first-load hydration is several short tasks instead of one long one
-// (the Lighthouse TBT gate counts only the portion of a task over 50 ms).
-const RoofResolution = dynamic(() =>
-  import("../components/sections/RoofResolution").then((m) => m.RoofResolution),
-);
-const YearSimulation = dynamic(() =>
-  import("../components/sections/YearSimulation").then((m) => m.YearSimulation),
-);
-const DealPricing = dynamic(() =>
-  import("../components/sections/DealPricing").then((m) => m.DealPricing),
-);
+import { RoofResolution } from "../components/sections/RoofResolution";
+import { YearSimulation } from "../components/sections/YearSimulation";
+import { DealPricing } from "../components/sections/DealPricing";
 import { GridDivider } from "../components/sections/SectionShell";
 import { SiteFooter } from "../components/nav/SiteFooter";
 
