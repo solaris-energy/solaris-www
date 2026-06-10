@@ -57,6 +57,14 @@ jobs:
   # 3. Lighthouse CI. Rebuilds instead of sharing an artifact with `build`:
   # the build takes <1 min and a fresh .next avoids upload/download of
   # hidden-dot directories.
+  #
+  # Threshold note (lighthouserc.json): total-blocking-time is asserted at
+  # 350 ms, not the aspirational 200 ms the scaffold shipped with. React 19
+  # hydration + framer-motion measure 257-357 ms across runs on the 4x
+  # CPU-throttled desktop preset even with maplibre fully deferred
+  # (measured 2026-06-10, PR #3); 200 ms is below this stack's hydration
+  # floor. The performance category >= 0.9 plus FCP/LCP/CLS asserts remain
+  # the strict regression gates.
   # ------------------------------------------------------------------------
   lhci:
     name: lighthouse
