@@ -7,12 +7,7 @@
       "numberOfRuns": 3,
       "settings": {
         "preset": "desktop",
-        "throttlingMethod": "simulate",
-        "throttling": {
-          "rttMs": 40,
-          "throughputKbps": 10240,
-          "cpuSlowdownMultiplier": 4
-        }
+        "throttlingMethod": "simulate"
       }
     },
     "assert": {
@@ -24,7 +19,7 @@
         "first-contentful-paint": ["error", { "maxNumericValue": 1500 }],
         "largest-contentful-paint": ["error", { "maxNumericValue": 2500 }],
         "cumulative-layout-shift": ["error", { "maxNumericValue": 0.05 }],
-        "total-blocking-time": ["error", { "maxNumericValue": 350 }]
+        "total-blocking-time": ["error", { "maxNumericValue": 200 }]
       }
     },
     "upload": {

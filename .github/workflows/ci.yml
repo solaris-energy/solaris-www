@@ -58,13 +58,13 @@ jobs:
   # the build takes <1 min and a fresh .next avoids upload/download of
   # hidden-dot directories.
   #
-  # Threshold note (lighthouserc.json): total-blocking-time is asserted at
-  # 350 ms, not the aspirational 200 ms the scaffold shipped with. React 19
-  # hydration + framer-motion measure 257-357 ms across runs on the 4x
-  # CPU-throttled desktop preset even with maplibre fully deferred
-  # (measured 2026-06-10, PR #3); 200 ms is below this stack's hydration
-  # floor. The performance category >= 0.9 plus FCP/LCP/CLS asserts remain
-  # the strict regression gates.
+  # Throttling note (lighthouserc.json): the scaffold's hand-rolled
+  # throttling block applied cpuSlowdownMultiplier 4 (mobile-class) on top
+  # of the desktop preset, whose scoring curve is calibrated for 1x. That
+  # mismatch put React 19 hydration + framer-motion at 257-357 ms TBT
+  # across runs (PR #3, 2026-06-10) with maplibre already fully deferred —
+  # an unreachable bar for this stack. The config now uses the desktop
+  # preset's own throttling defaults; the assertions are unchanged.
   # ------------------------------------------------------------------------
   lhci:
     name: lighthouse
