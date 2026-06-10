@@ -1,12 +1,7 @@
 // Synthetic PV module grid + rooftop setback polygon for the cinematic stage.
 // Coordinates centered on Casablanca demo site. All in WGS84 lon/lat.
 
-import type {
-  Feature,
-  FeatureCollection,
-  Polygon,
-  LineString,
-} from "geojson";
+import type { Feature, FeatureCollection, Polygon, LineString } from "geojson";
 
 const CENTER: [number, number] = [-7.51308, 33.62553];
 

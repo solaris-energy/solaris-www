@@ -14,7 +14,8 @@ export type Beat = {
 // render each KPI on its own row inside a narrow viewport. The desktop string
 // uses "|" separators and stays as a single line.
 const BEAT_4_KPI_MOBILE = "MODULES: 248\nkWp: 122.0\nANNUAL YIELD: 197.4 MWh";
-const BEAT_4_KPI_DESKTOP = "MODULES: 248   |   kWp: 122.0   |   ANNUAL YIELD: 197.4 MWh";
+const BEAT_4_KPI_DESKTOP =
+  "MODULES: 248   |   kWp: 122.0   |   ANNUAL YIELD: 197.4 MWh";
 
 export const BEATS_DESKTOP: readonly Beat[] = [
   {
@@ -111,10 +112,7 @@ export type Camera = {
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
 // Map p ∈ [0,1] onto the beat sequence. Returns the interpolated camera.
-export function interpolateCamera(
-  p: number,
-  beats: readonly Beat[] = BEATS,
-): Camera {
+export function interpolateCamera(p: number, beats: readonly Beat[] = BEATS): Camera {
   const max = beats.length - 1;
   const idx = Math.min(Math.max(p, 0), 1) * max;
   const i0 = Math.floor(idx);
